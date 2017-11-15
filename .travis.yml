@@ -1,0 +1,15 @@
+language: java
+sudo: false
+script: mvn verify
+
+#deploy:
+#  provider: pages
+#  skip_cleanup: true
+#  local_dir: target/site/apidocs
+#  on:
+#    branch: master
+
+notifications:
+  email:
+    on_sucess: never
+    on_failure: always

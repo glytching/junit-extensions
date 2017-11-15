@@ -3,17 +3,10 @@ JUnit Extensions
 
 Provides [JUnit 5 Extensions](http://junit.org/junit5/docs/current/user-guide/#extensions) to add convenient behaviour to test cases.
 
-Some of these have equivalents in [JUnit 4 Rules](https://github.com/junit-team/junit4/wiki/Rules) and, in time, there may be official JUnit 5 extensions for the more popular JUnit4 rules however that's not quite the case as yet.
-
-There have been discussions on this topic amongst the JUnit team, see:
-
-- See https://github.com/junit-team/junit5/issues/169
-- See https://github.com/junit-team/junit5-samples/issues/4
-
-But the upshot of these discussions seems to be:
+Some of these have equivalents in [JUnit 4 Rules](https://github.com/junit-team/junit4/wiki/Rules) and although there have been discussions amongst the JUnit community( see [this](https://github.com/junit-team/junit5/issues/169) and [this](https://github.com/junit-team/junit5-samples/issues/4)) about providing official JUnit5 extensions for the more popular JUnit4 rules the upshot of these discussions seems to be:
 
 - Enabling [limited support for JUnit4 rules on JUnit5](http://junit.org/junit5/docs/snapshot/user-guide/#migrating-from-junit4-rule-support)
-- Create extensions for the _must haves_ e.g. [Spring](https://github.com/sbrannen/spring-test-junit5), [Mockito](https://github.com/junit-team/junit5-samples/blob/master/junit5-mockito-extension/src/main/java/com/example/mockito/MockitoExtension.java)
+- Creating extensions for the _must haves_ e.g. [Spring](https://github.com/sbrannen/spring-test-junit5), [Mockito](https://github.com/junit-team/junit5-samples/blob/master/junit5-mockito-extension/src/main/java/com/example/mockito/MockitoExtension.java)
 
 So, this library includes a few common extension implementations. These might prove useful until the suite of extensions provided by JUnit grows (or, in case it does not grow).
 

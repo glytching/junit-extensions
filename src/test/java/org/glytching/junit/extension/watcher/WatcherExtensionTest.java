@@ -34,7 +34,7 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 @ExtendWith(WatcherExtension.class)
 public class WatcherExtensionTest {
 
-    @Test
+  @Test
   void canExecuteATestWithTheWatcherEngaged() throws Exception {
     // not much more we can do here!
     Thread.sleep(20);

@@ -1,4 +1,4 @@
-`WatcherExtension`
+WatcherExtension
 ======
 
 Similar to JUnit4's `TestWatcher` this extension watches the test invocation without modifying it or interfering with it in any way. Instead, it just logs:
@@ -20,6 +20,7 @@ This extension is engaged by adding the `@ExtendWith(WatcherExtension.class)` an
 public class MyTest {
 
     // entry, exit and elapsed time will be logged for every test in this test case
+    
 }
 ```
 
@@ -31,5 +32,4 @@ Example output (after bridging to SLF4J):
 2017-11-15 17:17:03,945|[main]|INFO |o.g.j.e.watcher.WatcherExtension|Starting test: [canGet]
 2017-11-15 17:17:04,167|[main]|INFO |o.g.d.http.okhttp.OkHttpClient|Get from: http://host:1234/some/end/point
 2017-11-15 17:17:04,201|[main]|INFO |o.g.j.e.watcher.WatcherExtension|Completed test [canGet] in 247 ms.
-
 ```

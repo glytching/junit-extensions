@@ -1,4 +1,4 @@
-`ExpectedExceptionExtension`
+ExpectedExceptionExtension
 ======
 
 Historically, assertions against an exception thrown by a JUnit test case involved one of the following:
@@ -37,32 +37,32 @@ Note: these are all **case sensitive**.
 
 #### Examples
 
-###### Expect a `Throwable` with an exact match on the exception message
+###### Expect a Throwable with an exact match on the exception message
 
 ```
-    @Test
-    @ExpectedException(type = Throwable.class, messageIs = "Boom!")
-    public void canHandleAThrowable() throws Throwable {
-        throw new Throwable("Boom!");
-    }
+@Test
+@ExpectedException(type = Throwable.class, messageIs = "Boom!")
+public void canHandleAThrowable() throws Throwable {
+    throw new Throwable("Boom!");
+}
 ```
 
-###### Expect a `RuntimeException` with an match on the beginning of the exception message
+###### Expect a RuntimeException with an match on the beginning of the exception message
 
 ```
-    @Test
-    @ExpectedException(type = RuntimeException.class, messageStartsWith = "Bye")
-    public void canHandleAnExceptionWithAMessageWhichStartsWith() {
-        throw new RuntimeException("Bye bye");
-    }
+@Test
+@ExpectedException(type = RuntimeException.class, messageStartsWith = "Bye")
+public void canHandleAnExceptionWithAMessageWhichStartsWith() {
+    throw new RuntimeException("Bye bye");
+}
 ```
 
 ###### Expect a custom exception type with an match on any part of the exception message 
 
 ```
-    @Test
-    @ExpectedException(type = MyDomainException.class, messageContains = "sorry")
-    public void canHandleAnExceptionWithAMessageWhichContains() {
-        throw new MyDomainException("Terribly sorry old chap");
-    }
+@Test
+@ExpectedException(type = MyDomainException.class, messageContains = "sorry")
+public void canHandleAnExceptionWithAMessageWhichContains() {
+    throw new MyDomainException("Terribly sorry old chap");
+}
 ```

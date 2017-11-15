@@ -1,4 +1,4 @@
-`TemporaryFolderExtension`
+TemporaryFolderExtension
 ======
 
 The JUnit 4 `TemporaryFolder` rule allowed for the creation of files and folders that are deleted when the test method finished (whether the test method passed or not). By default no exception was thrown if the file system resources could not be deleted.
@@ -11,7 +11,7 @@ This extension is engaged by adding the `@ExtendWith` annotation to a test class
 
 #### Examples
 
-###### Class Level `TemporaryFolder`
+###### Class Level TemporaryFolder
 
 ```
 @ExtendWith(TemporaryFolderExtension.class)
@@ -30,7 +30,7 @@ public class MyTest {
 }
 ```
 
-###### Method Level `TemporaryFolder`
+###### Method Level TemporaryFolder
 
 ```
 public class MyTest {

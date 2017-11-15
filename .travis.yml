@@ -1,6 +1,6 @@
 language: java
 sudo: false
-script: mvn verify
+script: mvn verify jacoco:report coveralls:report -DrepoToken=w7KlgSEVtzzJRRCxI84aCx3kwKOy0DR0r
 
 #deploy:
 #  provider: pages

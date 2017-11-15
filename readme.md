@@ -20,6 +20,10 @@ So, this library includes a few common extension implementations. These might pr
 Building JUnit-Extensions
 -------
 
+| Branch  | Status | Coverage |
+| --------| ------ | -------- |
+| Master  | [![Master Build Status](https://travis-ci.org/glytching/junit-extensions.svg?branch=master)](https://travis-ci.org/glytching/junit-extensions) | [![Coverage Status](https://coveralls.io/repos/github/glytching/junit-extensions/badge.svg?branch=master)](https://coveralls.io/github/glytching/junit-extensions?branch=master) |
+
 ```
 $ git clone https://github.com/glytching/junit-extensions.git
 $ cd junit-extensions

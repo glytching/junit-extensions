@@ -40,6 +40,8 @@
         <surefire.plugin.version>2.19</surefire.plugin.version>
         <jar.plugin.version>3.0.2</jar.plugin.version>
         <javadoc.plugin.version>3.0.0-M1</javadoc.plugin.version>
+        <maven.coveralls.plugin.version>4.3.0</maven.coveralls.plugin.version>
+        <maven.jacoco.plugin.version>0.7.9</maven.jacoco.plugin.version>
     </properties>
 
 
@@ -94,6 +96,27 @@
                 </executions>
                 <configuration>
                     <additionalparam>-Xdoclint:none</additionalparam>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${maven.jacoco.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.eluder.coveralls</groupId>
+                <artifactId>coveralls-maven-plugin</artifactId>
+                <version>${maven.coveralls.plugin.version}</version>
+                <configuration>
+                    <scanForSources>true</scanForSources>
                 </configuration>
             </plugin>
         </plugins>

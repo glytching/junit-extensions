@@ -1,0 +1,35 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+/* Modifies the theme style from https://github.com/pages-themes/minimal/blob/master/_sass/jekyll-theme-minimal.scss */
+
+header {
+  width:150px;
+}
+
+section {
+  width:750px;
+}
+
+footer {
+  width:150px;
+}
+
+.wrapper {
+  width:960px;
+}
+
+.body {
+    padding: 25px
+}
+
+p, ul, ol, table, pre, dl {
+  margin:0 0 10px;
+}
+
+img {
+    max-width: 95%;
+    padding: 5px 0 20px 0;
+}

@@ -1,0 +1,75 @@
+<!--
+    Modifies the theme default layout from https://github.com/pages-themes/minimal/blob/master/_layouts/default.html
+-->
+<!doctype html>
+<html lang="en-US">
+<head>
+    <title>JUnit-Extensions Documentation</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    {% seo %}
+
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico">
+
+    <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="wrapper">
+    <header>
+        <a href="{{ site.github.url }}"><h1>{{ site.title | default: site.github.repository_name }}</h1></a>
+
+        <!-- side bar links -->
+
+        <p><a href="index">Introduction</a></p>
+        <hr/>
+        <p><a href="expectedException">ExpectedException</a></p>
+        <p><a href="randomBeans">RandomBeans</a></p>
+        <p><a href="systemProperty">SystemProperty</a></p>
+        <p><a href="temporaryFolder">TemporaryFolder</a></p>
+        <p><a href="watcher">Watcher</a></p>
+
+        <!-- side bar links -->
+
+    </header>
+    <section>
+
+        {{ content }}
+
+    </section>
+    <footer>
+        <p>
+            <small>
+                <a href="{{ site.github.repository_url }}">GitHub Project</a> by
+                <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a>.
+            </small>
+        </p>
+    </footer>
+</div>
+<script src="{{ '/assets/js/scale.fix.js' | relative_url }}"></script>
+
+
+{% if site.google_analytics %}
+<script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        ga('create', '{{ site.google_analytics }}', 'auto');
+        ga('send', 'pageview');
+
+
+
+
+
+
+
+</script>
+{% endif %}
+</body>
+</html>

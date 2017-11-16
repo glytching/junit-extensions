@@ -32,7 +32,6 @@ import java.util.logging.Logger;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.startsWith;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 /**
@@ -60,7 +59,8 @@ public class WatcherExtensionMetaTest {
 
   @Test
   void willLogBeforeAndAfter() throws Exception {
-    Method testMethod = getMethod("canExecuteATestWithTheWatcherEngaged");
+    Method testMethod =
+        WatcherExtensionTest.class.getMethod("canExecuteATestWithTheWatcherEngaged");
 
     givenExtensionContentWithMethod(testMethod);
     when(store.remove(eq(testMethod), eq(long.class))).thenReturn(System.currentTimeMillis());
@@ -74,15 +74,12 @@ public class WatcherExtensionMetaTest {
     List<String> logEvents = captor.getAllValues();
     assertThat(logEvents.size(), is(2));
     assertThat(logEvents.get(0), is(String.format("Starting test [%s]", testMethod.getName())));
-    assertThat(logEvents.get(1),
+    assertThat(
+        logEvents.get(1),
         startsWith(String.format("Completed test [%s] in ", testMethod.getName())));
   }
 
-  private void givenExtensionContentWithMethod(Method method) throws NoSuchMethodException {
+  private void givenExtensionContentWithMethod(Method method) {
     when(extensionContext.getRequiredTestMethod()).thenReturn(method);
-  }
-
-  private Method getMethod(String methodName) throws NoSuchMethodException {
-    return WatcherExtensionTest.class.getMethod(methodName);
   }
 }

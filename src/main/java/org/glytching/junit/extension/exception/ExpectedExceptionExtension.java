@@ -29,7 +29,7 @@ import static org.junit.platform.commons.util.FunctionUtils.where;
 /**
  * The expected exception extension allows the developer to express the expectations of an exception
  * to be thrown by the code-under-test. This extension is engaged by adding the {@link
- * ExpectedException} annnotation to a test method.
+ * ExpectedException} annotation to a test method.
  *
  * <p>Usage example:
  *

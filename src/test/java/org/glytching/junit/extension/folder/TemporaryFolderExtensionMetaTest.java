@@ -26,7 +26,6 @@ import org.mockito.MockitoAnnotations;
 
 import java.io.IOException;
 
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 /**
@@ -48,11 +47,10 @@ import static org.mockito.Mockito.*;
  */
 public class TemporaryFolderExtensionMetaTest {
 
+  private final TemporaryFolderExtension sut = new TemporaryFolderExtension();
   @Mock private ExtensionContext extensionContext;
   @Mock private Store store;
   @Mock private TemporaryFolder temporaryFolder;
-
-  private TemporaryFolderExtension sut = new TemporaryFolderExtension();
 
   @BeforeEach
   public void prepare() {

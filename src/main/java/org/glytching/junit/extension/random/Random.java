@@ -19,7 +19,7 @@ package org.glytching.junit.extension.random;
 import java.lang.annotation.*;
 
 /**
- * Allows the caller to customise the random generaiton of a given type.
+ * Allows the caller to customise the random generation of a given type.
  *
  * <p>Usage example:
  *

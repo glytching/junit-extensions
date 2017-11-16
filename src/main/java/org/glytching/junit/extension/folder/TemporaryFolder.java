@@ -31,6 +31,7 @@ import static java.nio.file.FileVisitResult.CONTINUE;
  * with the operations which a tester may wish to invoke ({@link #createFile(String)}, {@link
  * #createDirectory(String)}) and post test invocations which the associated extension will invoke.
  */
+@SuppressWarnings("ResultOfMethodCallIgnored")
 public class TemporaryFolder {
   private static final String FILE_PREFIX = "junit";
   private static final String FILE_SUFFIX = ".tmp";
@@ -108,6 +109,7 @@ public class TemporaryFolder {
               return delete(directory);
             }
 
+            @SuppressWarnings("SameReturnValue")
             private FileVisitResult delete(Path file) throws IOException {
               Files.delete(file);
               return CONTINUE;

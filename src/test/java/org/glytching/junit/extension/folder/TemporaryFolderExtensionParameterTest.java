@@ -38,8 +38,8 @@ public class TemporaryFolderExtensionParameterTest {
   // gather the temporary file and directory paths to facilitate assertions on (a) the distinct-ness
   // of the temporary folder address supplied to each test and (b) the removal of each temporary
   // folder on test completion
-  private static Set<String> temporaryFilePaths = new HashSet<>();
-  private static Set<String> temporaryDirectoryPaths = new HashSet<>();
+  private static final Set<String> temporaryFilePaths = new HashSet<>();
+  private static final Set<String> temporaryDirectoryPaths = new HashSet<>();
 
   @AfterAll
   public static void allTemporaryFilesAreDeleted() {

@@ -38,9 +38,8 @@ import static org.mockito.Mockito.when;
  */
 public class ExpectedExceptionExtensionMetaTest {
 
+  private final ExpectedExceptionExtension sut = new ExpectedExceptionExtension();
   @Mock private ExtensionContext extensionContext;
-
-  private ExpectedExceptionExtension sut = new ExpectedExceptionExtension();
 
   @BeforeEach
   public void initMocks() {

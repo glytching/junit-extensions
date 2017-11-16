@@ -27,12 +27,12 @@ import java.util.Set;
  *
  * <ul>
  *   <li>If a new system property was added then we remove it
- *   <li>If an existing system property was overwritten then we reinstate its original vlaue
+ *   <li>If an existing system property was overwritten then we reinstate its original value
  * </ul>
  */
 class RestoreContext {
-  private Set<String> propertyNames;
-  private Map<String, String> restoreProperties;
+  private final Set<String> propertyNames;
+  private final Map<String, String> restoreProperties;
 
   /**
    * Created using the {@link Builder}.
@@ -73,8 +73,8 @@ class RestoreContext {
    * through system property configuration.
    */
   static class Builder {
-    private Set<String> properties;
-    private Map<String, String> restoreProperties;
+    private final Set<String> properties;
+    private final Map<String, String> restoreProperties;
 
     private Builder() {
       properties = new HashSet<>();

@@ -36,7 +36,7 @@ public class RandomBeansExtensionParameterTest {
 
   // gather the random values to facilitate assertions on the distinct-ness of the value supplied to
   // each test
-  private Set<String> anyStrings = new HashSet<>();
+  private final Set<String> anyStrings = new HashSet<>();
 
   @Test
   @ExtendWith(RandomBeansExtension.class)
@@ -83,6 +83,7 @@ public class RandomBeansExtensionParameterTest {
   public void canInjectARandomStream(@Random(type = String.class) Stream<String> anyStream)
       throws Exception {
     assertThat(anyStream, notNullValue());
+    //noinspection UnnecessaryBoxing
     assertThat(anyStream.count(), is(Long.valueOf(getDefaultSizeOfRandom())));
   }
 

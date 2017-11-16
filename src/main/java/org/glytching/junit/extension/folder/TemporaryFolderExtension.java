@@ -119,11 +119,11 @@ public class TemporaryFolderExtension implements AfterEachCallback, ParameterRes
   public void afterEach(ExtensionContext extensionContext) {
     TemporaryFolder temporaryFolder = getStore(extensionContext).get(KEY, TemporaryFolder.class);
     if (temporaryFolder != null) {
-        try {
-            temporaryFolder.destroy();
-        } catch (Exception e) {
-            // silent failures
-        }
+      try {
+        temporaryFolder.destroy();
+      } catch (Exception e) {
+        // silent failures
+      }
     }
   }
 

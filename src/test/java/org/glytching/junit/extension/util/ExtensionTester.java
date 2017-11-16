@@ -76,12 +76,11 @@ public class ExtensionTester {
     RecordingExecutionListener listener = new RecordingExecutionListener();
 
     // execute the discovered test resources
-      TestDescriptor testDescriptor = testEngine.discover(discoveryRequest, UniqueId.forEngine(testEngine.getId()));
-      testEngine.execute(
+    TestDescriptor testDescriptor =
+        testEngine.discover(discoveryRequest, UniqueId.forEngine(testEngine.getId()));
+    testEngine.execute(
         new ExecutionRequest(
-                testDescriptor,
-            listener,
-            discoveryRequest.getConfigurationParameters()));
+            testDescriptor, listener, discoveryRequest.getConfigurationParameters()));
 
     return listener;
   }

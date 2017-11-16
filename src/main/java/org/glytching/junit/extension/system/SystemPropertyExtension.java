@@ -16,16 +16,15 @@
  */
 package org.glytching.junit.extension.system;
 
-import org.glytching.junit.extension.folder.TemporaryFolderExtension;
 import org.junit.jupiter.api.extension.*;
 import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
 import org.junit.jupiter.api.extension.ExtensionContext.Store;
 
 import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import static java.util.Arrays.stream;
 import static org.junit.platform.commons.util.AnnotationUtils.isAnnotated;
 
 /**
@@ -47,7 +46,7 @@ import static org.junit.platform.commons.util.AnnotationUtils.isAnnotated;
  *       test methods in a Class {@code X} which extends {@code Y} then you must add the annotation
  *       to Class {@code X} not to Class {@code Y}. For example:
  *       <pre>
- *  &#064;SystemProperty(key = "nameA", value = "valueA")
+ *  &#064;SystemProperty(name = "nameA", value = "valueA")
  *  public class MyTest {
  *      // ...
  *  }
@@ -55,7 +54,7 @@ import static org.junit.platform.commons.util.AnnotationUtils.isAnnotated;
  *   <li>Parameter injection into a {@code @Test} method. For example:
  *       <pre>
  *  &#064;Test
- *  &#064;SystemProperty(key = "nameA", value = "valueA")
+ *  &#064;SystemProperty(name = "nameA", value = "valueA")
  *  public void testUsingSystemProperty() {
  *      // ...
  *  }
@@ -72,8 +71,8 @@ import static org.junit.platform.commons.util.AnnotationUtils.isAnnotated;
  * <pre>
  *  &#064;SystemProperties(
  *      properties = {
- *          &#064;SystemProperty(key = "nameA", value = "valueA"),
- *          &#064;SystemProperty(key = "nameB", value = "valueB")
+ *          &#064;SystemProperty(name = "nameA", value = "valueA"),
+ *          &#064;SystemProperty(name = "nameB", value = "valueB")
  *      }
  *  )
  * public class MyTest {
@@ -94,8 +93,8 @@ import static org.junit.platform.commons.util.AnnotationUtils.isAnnotated;
  *     &#064;Test
  *     &#064;SystemProperties(
  *         properties = {
- *            &#064;SystemProperty(key = "nameA", value = "valueA"),
- *            &#064;SystemProperty(key = "nameB", value = "valueB")
+ *            &#064;SystemProperty(name = "nameA", value = "valueA"),
+ *            &#064;SystemProperty(name = "nameB", value = "valueB")
  *         }
  *     )
  *     public void testUsingSystemProperties(TemporaryFolder temporaryFolder) {
@@ -104,7 +103,7 @@ import static org.junit.platform.commons.util.AnnotationUtils.isAnnotated;
  *     }
  *
  *     &#064;Test
- *     &#064;SystemProperty(key = "nameC", value = "valueC")
+ *     &#064;SystemProperty(name = "nameC", value = "valueC")
  *     public void testUsingSystemProperty(TemporaryFolder temporaryFolder) {
  *         // the system property nameC:valueC has been set
  *         // ...
@@ -141,10 +140,10 @@ public class SystemPropertyExtension
     if (!systemProperties.isEmpty()) {
       RestoreContext.Builder builder = RestoreContext.createBuilder();
       for (SystemProperty systemProperty : systemProperties) {
-        builder.addPropertyName(systemProperty.key());
-        if (System.getProperty(systemProperty.key()) != null) {
+        builder.addPropertyName(systemProperty.name());
+        if (System.getProperty(systemProperty.name()) != null) {
           builder.addRestoreProperty(
-              systemProperty.key(), System.getProperty(systemProperty.key()));
+              systemProperty.name(), System.getProperty(systemProperty.name()));
         }
 
         set(systemProperty);
@@ -186,10 +185,10 @@ public class SystemPropertyExtension
     if (!systemProperties.isEmpty()) {
       RestoreContext.Builder builder = RestoreContext.createBuilder();
       for (SystemProperty systemProperty : systemProperties) {
-        builder.addPropertyName(systemProperty.key());
-        if (System.getProperty(systemProperty.key()) != null) {
+        builder.addPropertyName(systemProperty.name());
+        if (System.getProperty(systemProperty.name()) != null) {
           builder.addRestoreProperty(
-              systemProperty.key(), System.getProperty(systemProperty.key()));
+              systemProperty.name(), System.getProperty(systemProperty.name()));
         }
 
         set(systemProperty);
@@ -235,8 +234,8 @@ public class SystemPropertyExtension
     List<SystemProperty> systemProperties = new ArrayList<>();
     if (isAnnotated(annotatedElement, SystemProperties.class)) {
       // gather than repeating system property values
-      stream(annotatedElement.getAnnotation(SystemProperties.class).properties())
-          .forEach(systemProperties::add);
+      systemProperties.addAll(
+          Arrays.asList(annotatedElement.getAnnotation(SystemProperties.class).properties()));
     }
     if (isAnnotated(annotatedElement, SystemProperty.class)) {
       // add the single system property value
@@ -246,7 +245,7 @@ public class SystemPropertyExtension
   }
 
   private void set(SystemProperty systemProperty) {
-    System.setProperty(systemProperty.key(), systemProperty.value());
+    System.setProperty(systemProperty.name(), systemProperty.value());
   }
 
   private void writeRestoreContext(
@@ -284,6 +283,6 @@ public class SystemPropertyExtension
    * @return a {@link Namespace} describing the scope for a single {@link RestoreContext}
    */
   private Namespace namespace(ExtensionContext extensionContext) {
-    return Namespace.create(TemporaryFolderExtension.class, extensionContext);
+    return Namespace.create(this.getClass(), extensionContext);
   }
 }

@@ -30,8 +30,8 @@ import java.lang.annotation.*;
  *  // set the system properties nameA:valueA and nameB:valueB
  *  &#064;SystemProperties(
  *      properties = {
- *          &#064;SystemProperty(key = "nameA", value = "valueA"),
- *          &#064;SystemProperty(key = "nameB", value = "valueB")
+ *          &#064;SystemProperty(name = "nameA", value = "valueA"),
+ *          &#064;SystemProperty(name = "nameB", value = "valueB")
  *      }
  *  )
  * </pre>

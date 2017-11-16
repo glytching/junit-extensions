@@ -3,7 +3,7 @@ TemporaryFolderExtension
 
 The JUnit 4 `TemporaryFolder` rule allowed for the creation of files and folders that are deleted when the test method finished (whether the test method passed or not). By default no exception was thrown if the file system resources could not be deleted.
 
-This extension offers the same features as JUnit4's `TemporaryFolder` rule and is fully compatible with JUnit5. 
+This extension offers the same features as JUnit4's `TemporaryFolder` rule and is fully compatible with JUnit Jupiter. 
 
 #### Usage
 
@@ -35,8 +35,6 @@ public class MyTest {
 ```
 public class MyTest {
 
-    private TemporaryFolder temporaryFolder;
- 
     @Test
     @ExtendWith(TemporaryFolderExtension.class)
     public void canUseTemporaryFolder(TemporaryFolder temporaryFolder) throws IOException {

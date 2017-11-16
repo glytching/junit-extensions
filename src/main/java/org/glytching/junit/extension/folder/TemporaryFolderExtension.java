@@ -119,7 +119,11 @@ public class TemporaryFolderExtension implements AfterEachCallback, ParameterRes
   public void afterEach(ExtensionContext extensionContext) {
     TemporaryFolder temporaryFolder = getStore(extensionContext).get(KEY, TemporaryFolder.class);
     if (temporaryFolder != null) {
-      temporaryFolder.destroy();
+        try {
+            temporaryFolder.destroy();
+        } catch (Exception e) {
+            // silent failures
+        }
     }
   }
 
@@ -174,7 +178,7 @@ public class TemporaryFolderExtension implements AfterEachCallback, ParameterRes
    * @return a {@link Store} for the given {@code extensionContext}
    */
   private Store getStore(ExtensionContext extensionContext) {
-    return extensionContext.getRoot().getStore(namespace(extensionContext));
+    return extensionContext.getStore(namespace(extensionContext));
   }
 
   /**
@@ -188,6 +192,6 @@ public class TemporaryFolderExtension implements AfterEachCallback, ParameterRes
    * @return a {@link Namespace} describing the scope for a single {@link TemporaryFolder}
    */
   private Namespace namespace(ExtensionContext extensionContext) {
-    return Namespace.create(TemporaryFolderExtension.class, extensionContext);
+    return Namespace.create(this.getClass(), extensionContext);
   }
 }

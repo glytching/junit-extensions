@@ -33,7 +33,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
-@SystemProperty(key = "x", value = "y")
+@SystemProperty(name = "x", value = "y")
 @ExtendWith({RandomBeansExtension.class, WatcherExtension.class})
 public class CompositeExtensionTest {
 

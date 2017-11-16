@@ -28,7 +28,7 @@ import java.lang.annotation.*;
  *
  * <pre>
  *  // set the system properties nameA:valueA
- *  &#064;SystemProperty(key = "nameA", value = "valueA")
+ *  &#064;SystemProperty(name = "nameA", value = "valueA")
  * </pre>
  */
 @Retention(RetentionPolicy.RUNTIME)
@@ -37,7 +37,7 @@ import java.lang.annotation.*;
 @ExtendWith(SystemPropertyExtension.class)
 public @interface SystemProperty {
 
-  String key();
+  String name();
 
   String value();
 }

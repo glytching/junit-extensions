@@ -34,17 +34,17 @@ public void aTest() {
 }
 ```
 
-Quite verbose. Instead you can use the `SystemPropertyExtension`, this extension is engaged by adding the `@SystemProperty` annotation (or its repeating equivalent: `@SystemProperties`) to a test case or a test method. This annotation allows you to declare:
+These approaches will work but they are verbose and brittle. The `SystemPropertyExtension` allows you to _declare_ this behaviour by adding the `@SystemProperty` annotation (or its repeating equivalent: `@SystemProperties`) to a test case or a test method. This annotation allows you to declare:
                                                                        
-- The system property name
-- The system property value
+- `name`: the system property name
+- `value`: The system property value
 
 #### Examples
 
 ###### Class Level System Property
 
 ```
-@SystemProperty(key = "x", value = "y")
+@SystemProperty(name = "x", value = "y")
 public class MyTest {
 
     @Test
@@ -59,8 +59,8 @@ public class MyTest {
 ```
 @SystemProperties(
   properties = {
-    @SystemProperty(key = "x", value = "y"),
-    @SystemProperty(key = "p", value = "q")
+    @SystemProperty(name = "x", value = "y"),
+    @SystemProperty(name = "p", value = "q")
   }
 )
 public class MyTest {
@@ -79,7 +79,7 @@ public class MyTest {
 public class MyTest {
 
     @Test
-    @SystemProperty(key = "x", value = "y")
+    @SystemProperty(name = "x", value = "y")
     public void aTes() {
         assertThat(System.getProperty("x"), is("y"));
     }
@@ -94,8 +94,8 @@ public class MyTest {
     @Test
     @SystemProperties(
       properties = {
-        @SystemProperty(key = "x", value = "y"),
-        @SystemProperty(key = "p", value = "q")
+        @SystemProperty(name = "x", value = "y"),
+        @SystemProperty(name = "p", value = "q")
       }
     )
     public void aTes() {

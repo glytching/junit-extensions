@@ -21,11 +21,11 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-@SystemProperty(key = "classPropertyKeyC", value = "classPropertyValueC")
+@SystemProperty(name = "classPropertyKeyC", value = "classPropertyValueC")
 @SystemProperties(
   properties = {
-    @SystemProperty(key = "classPropertyKeyA", value = "classPropertyValueA"),
-    @SystemProperty(key = "classPropertyKeyB", value = "classPropertyValueB")
+    @SystemProperty(name = "classPropertyKeyA", value = "classPropertyValueA"),
+    @SystemProperty(name = "classPropertyKeyB", value = "classPropertyValueB")
   }
 )
 public class SystemPropertyExtensionClassTest {
@@ -42,7 +42,7 @@ public class SystemPropertyExtensionClassTest {
   }
 
   @Test
-  @SystemProperty(key = "keyA", value = "valueA")
+  @SystemProperty(name = "keyA", value = "valueA")
   public void canHandleClassAndMethodLevelSystemProperties() {
     assertThat(System.getProperty("classPropertyKeyA"), is("classPropertyValueA"));
     assertThat(System.getProperty("classPropertyKeyB"), is("classPropertyValueB"));

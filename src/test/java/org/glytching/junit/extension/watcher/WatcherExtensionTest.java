@@ -21,9 +21,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
 /**
- * The {@link WatcherExtension} does not benefit from 'meta testing' and it is difficult to assert
- * against its side effects since all it does it write some log events and we cannot easily mock the
- * logger instance it uses. There seem to be some gaps around testability of JUnit5 extensions e.g.
+ * The {@link WatcherExtension} has no easily assertable side effects since all it does it write
+ * some log events and we cannot easily mock the logger instance it uses when invoking it in the
+ * <em>normal</em> test flow.
+ *
+ * <p>There seem to be some gaps around testability of JUnit Jupiter extensions e.g.
  *
  * <ul>
  *   <li>Cannot inject dependencies into extensions; for the {@link WatcherExtension} it would be
@@ -35,7 +37,7 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 public class WatcherExtensionTest {
 
   @Test
-  void canExecuteATestWithTheWatcherEngaged() throws Exception {
+  public void canExecuteATestWithTheWatcherEngaged() throws Exception {
     // not much more we can do here!
     Thread.sleep(20);
   }

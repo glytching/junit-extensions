@@ -19,6 +19,7 @@ package org.glytching.junit.extension.util;
 import org.junit.jupiter.engine.JupiterTestEngine;
 import org.junit.platform.engine.DiscoverySelector;
 import org.junit.platform.engine.ExecutionRequest;
+import org.junit.platform.engine.TestDescriptor;
 import org.junit.platform.engine.UniqueId;
 import org.junit.platform.launcher.LauncherDiscoveryRequest;
 
@@ -75,9 +76,10 @@ public class ExtensionTester {
     RecordingExecutionListener listener = new RecordingExecutionListener();
 
     // execute the discovered test resources
-    testEngine.execute(
+      TestDescriptor testDescriptor = testEngine.discover(discoveryRequest, UniqueId.forEngine(testEngine.getId()));
+      testEngine.execute(
         new ExecutionRequest(
-            testEngine.discover(discoveryRequest, UniqueId.forEngine(testEngine.getId())),
+                testDescriptor,
             listener,
             discoveryRequest.getConfigurationParameters()));
 

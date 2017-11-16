@@ -20,33 +20,33 @@ import org.junit.jupiter.api.Test;
 
 public class ExpectedExceptionExtensionTest {
 
-  @Test
-  @ExpectedException(type = Throwable.class, messageIs = "Boom!")
-  public void canHandleAThrowable() throws Throwable {
-    throw new Throwable("Boom!");
-  }
+    @Test
+    @ExpectedException(type = Throwable.class, messageIs = "Boom!")
+    public void canHandleAThrowable() throws Throwable {
+        throw new Throwable("Boom!");
+    }
 
-  @Test
-  @ExpectedException(type = Exception.class, messageIs = "Boom!")
-  public void canHandleAnException() throws Exception {
-    throw new Exception("Boom!");
-  }
+    @Test
+    @ExpectedException(type = Exception.class, messageIs = "Boom!")
+    public void canHandleAnException() throws Exception {
+        throw new Exception("Boom!");
+    }
 
-  @Test
-  @ExpectedException(type = RuntimeException.class, messageIs = "Boom!")
-  public void canHandleARuntimeException() {
-    throw new RuntimeException("Boom!");
-  }
+    @Test
+    @ExpectedException(type = RuntimeException.class, messageIs = "Boom!")
+    public void canHandleARuntimeException() {
+        throw new RuntimeException("Boom!");
+    }
 
-  @Test
-  @ExpectedException(type = RuntimeException.class, messageStartsWith = "Bye")
-  public void canHandleAnExceptionWithAMessageWhichStartsWith() {
-    throw new RuntimeException("Bye bye");
-  }
+    @Test
+    @ExpectedException(type = RuntimeException.class, messageStartsWith = "Bye")
+    public void canHandleAnExceptionWithAMessageWhichStartsWith() {
+        throw new RuntimeException("Bye bye");
+    }
 
-  @Test
-  @ExpectedException(type = RuntimeException.class, messageContains = "sorry")
-  public void canHandleAnExceptionWithAMessageWhichContains() {
-    throw new RuntimeException("Terribly sorry old chap");
-  }
+    @Test
+    @ExpectedException(type = RuntimeException.class, messageContains = "sorry")
+    public void canHandleAnExceptionWithAMessageWhichContains() {
+        throw new RuntimeException("Terribly sorry old chap");
+    }
 }

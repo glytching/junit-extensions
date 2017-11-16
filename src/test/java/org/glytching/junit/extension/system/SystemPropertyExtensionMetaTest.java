@@ -26,12 +26,12 @@ import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectMethod;
 
 /**
- * Tests the {@link SystemPropertyExtension} _from the outside_. There are other tests which verify
- * that the 'set property' side effects of the {@link SystemPropertyExtension} are correct but this
- * extension is also responsible for reverting whatever properties it set and we cannot test that
- * behaviour in the standard test flow. Instead, we have to run the test and then assert that the
- * reversion is successful <b>after</b> the test engine has completed (including invoking afterEach,
- * afterAll).
+ * Tests the {@link SystemPropertyExtension} <em>from the outside</em>. There are other tests which
+ * verify that the 'set property' side effects of the {@link SystemPropertyExtension} are correct
+ * but this extension is also responsible for reverting whatever properties it set and we cannot
+ * test that behaviour in the standard test flow. Instead, we have to run the test and then assert
+ * that the reversion is successful <b>after</b> the test engine has completed (including invoking
+ * afterEach, afterAll).
  */
 public class SystemPropertyExtensionMetaTest {
 

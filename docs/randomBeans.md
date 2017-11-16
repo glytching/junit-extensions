@@ -3,7 +3,7 @@ RandomBeansExtension
 
 > With thanks to the author of [Random Beans](https://github.com/benas/random-beans).
 
-Sometimes you don't care about the specific value of a class-under-test (or a class involved in a test) you just need it to be populated with _something_. The `RandomBeansExtension` wraps the [Random Beans](https://github.com/benas/random-beans) fake data generator in a JUnit5 extension allowing you to inject 'fake' instances of classes, primitives, collections into your test cases. The extension supports injection of test class fields and test method parameters.
+Sometimes you don't care about the specific value of a class-under-test (or a class involved in a test) you just need it to be populated with _something_. The `RandomBeansExtension` wraps the [Random Beans](https://github.com/benas/random-beans) fake data generator in a JUnit Jupiter extension allowing you to inject 'fake' instances of classes, primitives, collections into your test cases. The extension supports injection of test class fields and test method parameters.
 
 #### Usage
 

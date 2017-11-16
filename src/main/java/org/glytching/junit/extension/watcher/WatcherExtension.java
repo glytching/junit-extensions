@@ -16,7 +16,6 @@
  */
 package org.glytching.junit.extension.watcher;
 
-import org.glytching.junit.extension.folder.TemporaryFolderExtension;
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -61,11 +60,17 @@ import java.util.logging.Logger;
  * @since 1.0.0
  */
 public class WatcherExtension implements BeforeTestExecutionCallback, AfterTestExecutionCallback {
-  private static final Logger LOG = Logger.getLogger(WatcherExtension.class.getName());
+  private final Logger logger;
 
-  public WatcherExtension() {
-    System.out.println("here");
+  WatcherExtension() {
+    this(Logger.getLogger(WatcherExtension.class.getName()));
   }
+
+  // erm, facilitates testing
+  WatcherExtension(Logger logger) {
+    this.logger = logger;
+  }
+
   /**
    * Log test method entry and store its start time in the {@link Store} for use in {@link
    * #afterTestExecution(ExtensionContext)}.
@@ -77,7 +82,7 @@ public class WatcherExtension implements BeforeTestExecutionCallback, AfterTestE
   @Override
   public void beforeTestExecution(ExtensionContext extensionContext) throws Exception {
     Method testMethod = extensionContext.getRequiredTestMethod();
-    LOG.info(() -> String.format("Starting test: [%s]", testMethod.getName()));
+    logger.info(String.format("Starting test [%s]", testMethod.getName()));
     getStore(extensionContext).put(testMethod, System.currentTimeMillis());
   }
 
@@ -95,7 +100,7 @@ public class WatcherExtension implements BeforeTestExecutionCallback, AfterTestE
     long start = getStore(extensionContext).remove(testMethod, long.class);
     long duration = System.currentTimeMillis() - start;
 
-    LOG.info(() -> String.format("Completed test [%s] in %s ms.", testMethod.getName(), duration));
+    logger.info(String.format("Completed test [%s] in %sms", testMethod.getName(), duration));
   }
 
   /**
@@ -124,6 +129,6 @@ public class WatcherExtension implements BeforeTestExecutionCallback, AfterTestE
    * @return a {@link Namespace} describing the scope for a single {@link ExtensionContext}
    */
   private Namespace namespace(ExtensionContext extensionContext) {
-    return Namespace.create(TemporaryFolderExtension.class, extensionContext);
+    return Namespace.create(this.getClass(), extensionContext);
   }
 }

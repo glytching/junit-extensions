@@ -31,7 +31,7 @@ import static java.nio.file.FileVisitResult.CONTINUE;
  * with the operations which a tester may wish to invoke ({@link #createFile(String)}, {@link
  * #createDirectory(String)}) and post test invocations which the associated extension will invoke.
  */
-public final class TemporaryFolder {
+public class TemporaryFolder {
   private static final String FILE_PREFIX = "junit";
   private static final String FILE_SUFFIX = ".tmp";
 
@@ -90,36 +90,32 @@ public final class TemporaryFolder {
    *
    * <p><b>Note</b>: any exception encountered during deletion will be swallowed.
    */
-  void destroy() {
-    try {
-      if (rootFolder.exists()) {
-        // walk the contents deleting each
-        Files.walkFileTree(
-            rootFolder.toPath(),
-            new SimpleFileVisitor<Path>() {
-              @Override
-              public FileVisitResult visitFile(Path file, BasicFileAttributes attributes)
-                  throws IOException {
-                return delete(file);
-              }
+  void destroy() throws IOException {
+    if (rootFolder.exists()) {
+      // walk the contents deleting each
+      Files.walkFileTree(
+          rootFolder.toPath(),
+          new SimpleFileVisitor<Path>() {
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attributes)
+                throws IOException {
+              return delete(file);
+            }
 
-              @Override
-              public FileVisitResult postVisitDirectory(Path directory, IOException exception)
-                  throws IOException {
-                return delete(directory);
-              }
+            @Override
+            public FileVisitResult postVisitDirectory(Path directory, IOException exception)
+                throws IOException {
+              return delete(directory);
+            }
 
-              private FileVisitResult delete(Path file) throws IOException {
-                Files.delete(file);
-                return CONTINUE;
-              }
-            });
+            private FileVisitResult delete(Path file) throws IOException {
+              Files.delete(file);
+              return CONTINUE;
+            }
+          });
 
-        // delete the parent
-        rootFolder.delete();
-      }
-    } catch (Exception ex) {
-      // silent failures
+      // delete the parent
+      rootFolder.delete();
     }
   }
 }

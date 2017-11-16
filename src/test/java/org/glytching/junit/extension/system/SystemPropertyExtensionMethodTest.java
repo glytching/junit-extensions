@@ -24,7 +24,7 @@ import static org.hamcrest.Matchers.is;
 public class SystemPropertyExtensionMethodTest {
 
   @Test
-  @SystemProperty(key = "keyC", value = "valueC")
+  @SystemProperty(name = "keyC", value = "valueC")
   public void canSetSystemProperty() {
     assertThat(System.getProperty("keyC"), is("valueC"));
   }
@@ -32,8 +32,8 @@ public class SystemPropertyExtensionMethodTest {
   @Test
   @SystemProperties(
     properties = {
-      @SystemProperty(key = "keyA", value = "valueA"),
-      @SystemProperty(key = "keyB", value = "valueB")
+      @SystemProperty(name = "keyA", value = "valueA"),
+      @SystemProperty(name = "keyB", value = "valueB")
     }
   )
   public void canSetSystemProperties() {

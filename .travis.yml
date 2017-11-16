@@ -2,13 +2,6 @@ language: java
 sudo: false
 script: mvn verify jacoco:report coveralls:report -DrepoToken=w7KlgSEVtzzJRRCxI84aCx3kwKOy0DR0r
 
-#deploy:
-#  provider: pages
-#  skip_cleanup: true
-#  local_dir: target/site/apidocs
-#  on:
-#    branch: master
-
 notifications:
   email:
     on_sucess: never

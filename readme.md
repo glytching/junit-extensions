@@ -8,15 +8,28 @@ JUnit Extensions
     
 There have been discussions amongst the JUnit community (see [this](https://github.com/junit-team/junit5/issues/169) and [this](https://github.com/junit-team/junit5-samples/issues/4)) about providing official [JUnit Jupiter Extensions](http://junit.org/junit5/docs/current/user-guide/#extensions) for the more popular [JUnit4 Rules](https://github.com/junit-team/junit4/wiki/Rules). The upshot of these discussions seems to be enabling [limited support for JUnit4 rules on JUnit5](http://junit.org/junit5/docs/snapshot/user-guide/#migrating-from-junit4-rule-support).
 
-In a bid to fill a gap, this library provides the following extensions. 
+In a bid to fill a gap, this library provides the following extensions. These may prove useful until the suite of extensions provided by JUnit grows (or, in case it does not grow).
 
-- `ExpectedExceptionExtension`: allows you to run a test method with an expected exception and (optionally) exception message, delegating responsibility for making the assertion to the extension
-- `RandomBeansExtension`: allows you to inject random instances of classes into your tests, useful when you need a class instance to test with but you don't care about its contents
-- `SystemPropertyExtension`: allows you to set system properties before test execution and reverts these changes on test completion
-- `TemporaryFolderExtension`: allows you to create temporary files and directories in your test, any such files or directories created in your tests are removed for you when the tests complete
-- `WatcherExtension`: logs test execution flow including entry, exit and elapsed time in milliseconds
+###### ExpectedExceptionExtension
 
-These may prove useful until the suite of extensions provided by JUnit grows (or, in case it does not grow).
+Allows you to run a test method with an expected exception and (optionally) exception message, delegating responsibility for making the assertion to the extension
+
+###### RandomBeansExtension
+
+Allows you to inject random instances of classes into your tests, useful when you need a class instance to test with but you don't care about its contents
+
+###### SystemPropertyExtension
+
+Allows you to set system properties before test execution and reverts these changes on test completion
+
+###### TemporaryFolderExtension
+
+Allows you to create temporary files and directories in your test, any such files or directories created in your tests are removed for you when the tests complete
+
+###### WatcherExtension
+
+Logs test execution flow including entry, exit and elapsed time in milliseconds
+
 
 Using JUnit-Extensions
 -------

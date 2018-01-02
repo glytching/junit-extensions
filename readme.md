@@ -26,6 +26,10 @@ Allows you to set system properties before test execution and reverts these chan
 
 Allows you to create temporary files and directories in your test, any such files or directories created in your tests are removed for you when the tests complete
 
+###### TestNameExtension
+
+Allows you to use the name of the currently executing test within your test cases
+
 ###### WatcherExtension
 
 Logs test execution flow including entry, exit and elapsed time in milliseconds

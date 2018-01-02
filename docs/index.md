@@ -15,6 +15,8 @@ Provides the following features, implemented using [JUnit Jupiter's Extension Mo
 
 - `TemporaryFolderExtension`: allows you to create temporary files and directories in your tests, any such files or directories created in your tests are removed for you when the tests complete
 
+- `TestNameExtension`: makes the current test name available inside test methods
+
 - `WatcherExtension`: logs test execution flow including entry, exit and elapsed time in milliseconds
 
 #### Further Reading

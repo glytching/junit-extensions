@@ -34,7 +34,7 @@ Logs test execution flow including entry, exit and elapsed time in milliseconds
 Using JUnit-Extensions
 -------
 
-The `junit-extensions` library is available on [Maven Central](http://search.maven.org/#artifactdetails%7Cio.github.glytching%7Cjunit-extensions%7C1.0.0%7Cjar):
+The `junit-extensions` library is available on [Maven Central](http://search.maven.org/#artifactdetails%7Cio.github.glytching%7Cjunit-extensions%7C1.1.0%7Cjar):
 
 ###### Maven 
 
@@ -42,7 +42,7 @@ The `junit-extensions` library is available on [Maven Central](http://search.mav
 <dependency>
     <groupId>io.github.glytching</groupId>
     <artifactId>junit-extensions</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <scope>test</scope>
 </dependency>
 ```
@@ -50,7 +50,7 @@ The `junit-extensions` library is available on [Maven Central](http://search.mav
 ###### Gradle
 
 ```
-testCompile 'io.github.glytching:junit-extensions:1.0.0'
+testCompile 'io.github.glytching:junit-extensions:1.1.0'
 ```
 
 Detailed usage instructions for each of the extensions is available in [the docs](https://glytching.github.io/junit-extensions/).

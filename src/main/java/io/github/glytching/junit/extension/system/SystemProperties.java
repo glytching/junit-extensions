@@ -28,12 +28,8 @@ import java.lang.annotation.*;
  *
  * <pre>
  *  // set the system properties nameA:valueA and nameB:valueB
- *  &#064;SystemProperties(
- *      properties = {
- *          &#064;SystemProperty(name = "nameA", value = "valueA"),
- *          &#064;SystemProperty(name = "nameB", value = "valueB")
- *      }
- *  )
+ *  &#064;SystemProperty(name = "nameA", value = "valueA")
+ *  &#064;SystemProperty(name = "nameB", value = "valueB")
  * </pre>
  */
 @Retention(RetentionPolicy.RUNTIME)
@@ -42,5 +38,5 @@ import java.lang.annotation.*;
 @ExtendWith(SystemPropertyExtension.class)
 public @interface SystemProperties {
 
-  SystemProperty[] properties();
+  SystemProperty[] value();
 }

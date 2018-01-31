@@ -30,12 +30,8 @@ public class SystemPropertyExtensionMethodTest {
   }
 
   @Test
-  @SystemProperties(
-    properties = {
-      @SystemProperty(name = "keyA", value = "valueA"),
-      @SystemProperty(name = "keyB", value = "valueB")
-    }
-  )
+  @SystemProperty(name = "keyA", value = "valueA")
+  @SystemProperty(name = "keyB", value = "valueB")
   public void canSetSystemProperties() {
     assertThat(System.getProperty("keyA"), is("valueA"));
     assertThat(System.getProperty("keyB"), is("valueB"));

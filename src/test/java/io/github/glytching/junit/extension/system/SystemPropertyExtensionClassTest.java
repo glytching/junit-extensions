@@ -22,12 +22,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @SystemProperty(name = "classPropertyKeyC", value = "classPropertyValueC")
-@SystemProperties(
-  properties = {
-    @SystemProperty(name = "classPropertyKeyA", value = "classPropertyValueA"),
-    @SystemProperty(name = "classPropertyKeyB", value = "classPropertyValueB")
-  }
-)
+@SystemProperty(name = "classPropertyKeyA", value = "classPropertyValueA")
+@SystemProperty(name = "classPropertyKeyB", value = "classPropertyValueB")
 public class SystemPropertyExtensionClassTest {
 
   @Test

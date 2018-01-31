@@ -20,6 +20,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.lang.annotation.*;
 
+
 /**
  * Declares a system property to be set before a test. This annotation can be used at class level
  * and at method level.
@@ -34,10 +35,11 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD, ElementType.ANNOTATION_TYPE})
 @Documented
+@Repeatable(value = SystemProperties.class)
 @ExtendWith(SystemPropertyExtension.class)
 public @interface SystemProperty {
 
-  String name();
+    String name();
 
-  String value();
+    String value();
 }

@@ -61,20 +61,15 @@ import static org.junit.platform.commons.util.AnnotationUtils.isAnnotated;
  * </pre>
  * </ul>
  *
- * <p>Multiple system properties can be declared using the {@link SystemProperties} repeating
- * annotation.
+ * <p>The {@link SystemProperty} annotation is repeatable.
  *
  * <p>Usage examples:
  *
  * <p>Declaring system properties at class level:
  *
  * <pre>
- *  &#064;SystemProperties(
- *      properties = {
- *          &#064;SystemProperty(name = "nameA", value = "valueA"),
- *          &#064;SystemProperty(name = "nameB", value = "valueB")
- *      }
- *  )
+ *  &#064;SystemProperty(name = "nameA", value = "valueA")
+ *  &#064;SystemProperty(name = "nameB", value = "valueB")
  * public class MyTest {
  *
  *     &#064;Test
@@ -91,12 +86,8 @@ import static org.junit.platform.commons.util.AnnotationUtils.isAnnotated;
  * public class MyTest {
  *
  *     &#064;Test
- *     &#064;SystemProperties(
- *         properties = {
- *            &#064;SystemProperty(name = "nameA", value = "valueA"),
- *            &#064;SystemProperty(name = "nameB", value = "valueB")
- *         }
- *     )
+ *     &#064;SystemProperty(name = "nameA", value = "valueA")
+ *     &#064;SystemProperty(name = "nameB", value = "valueB")
  *     public void testUsingSystemProperties(TemporaryFolder temporaryFolder) {
  *         // the system properties nameA:valueA, nameB:valueB have been set
  *         // ...
@@ -233,9 +224,9 @@ public class SystemPropertyExtension
   private List<SystemProperty> getSystemProperties(AnnotatedElement annotatedElement) {
     List<SystemProperty> systemProperties = new ArrayList<>();
     if (isAnnotated(annotatedElement, SystemProperties.class)) {
-      // gather than repeating system property values
+      // gather the repeating system property values
       systemProperties.addAll(
-          Arrays.asList(annotatedElement.getAnnotation(SystemProperties.class).properties()));
+          Arrays.asList(annotatedElement.getAnnotation(SystemProperties.class).value()));
     }
     if (isAnnotated(annotatedElement, SystemProperty.class)) {
       // add the single system property value

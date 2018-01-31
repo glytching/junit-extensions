@@ -1,6 +1,8 @@
 JUnit Extensions
 ====
 
+> With thanks and appreciation to to the authors of [JUnit5](https://github.com/junit-team/junit5/graphs/contributors).
+
 | Branch  | Status | Coverage | Maven Central | Javadocs |
 | --------| ------ | -------- | ------------- | -------- |
 | Master  | [![Build Status](https://travis-ci.org/glytching/junit-extensions.svg?branch=master)](https://travis-ci.org/glytching/junit-extensions) | [![Coverage Status](https://coveralls.io/repos/github/glytching/junit-extensions/badge.svg?branch=master)](https://coveralls.io/github/glytching/junit-extensions?branch=master) | - | - |
@@ -8,7 +10,9 @@ JUnit Extensions
     
 There have been discussions amongst the JUnit community (see [this](https://github.com/junit-team/junit5/issues/169) and [this](https://github.com/junit-team/junit5-samples/issues/4)) about providing official [JUnit Jupiter Extensions](http://junit.org/junit5/docs/current/user-guide/#extensions) for the more popular [JUnit4 Rules](https://github.com/junit-team/junit4/wiki/Rules). The upshot of these discussions seems to be enabling [limited support for JUnit4 rules on JUnit5](http://junit.org/junit5/docs/snapshot/user-guide/#migrating-from-junit4-rule-support).
 
-In a bid to fill a gap, this library provides the following extensions. These may prove useful until the suite of extensions provided by JUnit grows (or, in case it does not grow).
+In a bid to fill a gap, this library provides implementations of some extensions which may prove useful until the suite of extensions provided by JUnit grows (or, in case it does not grow).
+
+Detailed usage instructions for each of the extensions is available in [the docs](https://glytching.github.io/junit-extensions/) but briefly ...
 
 ###### ExpectedExceptionExtension
 
@@ -56,8 +60,6 @@ The `junit-extensions` library is available on [Maven Central](http://search.mav
 ```
 testCompile 'io.github.glytching:junit-extensions:1.1.0'
 ```
-
-Detailed usage instructions for each of the extensions is available in [the docs](https://glytching.github.io/junit-extensions/).
 
 Building JUnit-Extensions
 -------

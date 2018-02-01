@@ -3,11 +3,15 @@ JUnit Extensions
 
 > With thanks and appreciation to to the authors of [JUnit5](https://github.com/junit-team/junit5/graphs/contributors).
 
-| Branch  | Status | Coverage | Maven Central | Javadocs |
-| --------| ------ | -------- | ------------- | -------- |
-| Master  | [![Build Status](https://travis-ci.org/glytching/junit-extensions.svg?branch=master)](https://travis-ci.org/glytching/junit-extensions) | [![Coverage Status](https://coveralls.io/repos/github/glytching/junit-extensions/badge.svg?branch=master)](https://coveralls.io/github/glytching/junit-extensions?branch=master) | - | - |
-| v1.1.0  | [![Build Status](https://travis-ci.org/glytching/junit-extensions.svg?branch=1.1.0)](https://travis-ci.org/glytching/junit-extensions/branches) | [![Coverage Status](https://coveralls.io/repos/github/glytching/junit-extensions/badge.svg?branch=1.1.0)](https://coveralls.io/github/glytching/junit-extensions?branch=1.1.0) | [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.glytching/junit-extensions/badge.svg?style=flat)](http://repo1.maven.org/maven2/io/github/glytching/junit-extensions/1.1.0/) | [![Javadocs](http://www.javadoc.io/badge/io.github.glytching/junit-extensions.svg)](http://www.javadoc.io/doc/io.github.glytching/junit-extensions/1.1.0) |
-    
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.glytching/junit-extensions/badge.svg?style=flat)](http://repo1.maven.org/maven2/io/github/glytching/junit-extensions/2.0.0/) 
+[![Javadocs](http://www.javadoc.io/badge/io.github.glytching/junit-extensions.svg)](http://www.javadoc.io/doc/io.github.glytching/junit-extensions/2.0.0) 
+
+| Branch  | Status | Coverage | 
+| --------| ------ | -------- | 
+| Master  | [![Build Status](https://travis-ci.org/glytching/junit-extensions.svg?branch=master)](https://travis-ci.org/glytching/junit-extensions) | [![Coverage Status](https://coveralls.io/repos/github/glytching/junit-extensions/badge.svg?branch=master)](https://coveralls.io/github/glytching/junit-extensions?branch=master) |
+| v1.1.0  | [![Build Status](https://travis-ci.org/glytching/junit-extensions.svg?branch=1.1.0)](https://travis-ci.org/glytching/junit-extensions/branches) | [![Coverage Status](https://coveralls.io/repos/github/glytching/junit-extensions/badge.svg?branch=1.1.0)](https://coveralls.io/github/glytching/junit-extensions?branch=1.1.0) | 
+| v2.0.0  | [![Build Status](https://travis-ci.org/glytching/junit-extensions.svg?branch=v2.0.0)](https://travis-ci.org/glytching/junit-extensions/branches) | [![Coverage Status](https://coveralls.io/repos/github/glytching/junit-extensions/badge.svg?branch=v2.0.0)](https://coveralls.io/github/glytching/junit-extensions?branch=v2.0.0) | 
+
 There have been discussions amongst the JUnit community (see [this](https://github.com/junit-team/junit5/issues/169) and [this](https://github.com/junit-team/junit5-samples/issues/4)) about providing official [JUnit Jupiter Extensions](http://junit.org/junit5/docs/current/user-guide/#extensions) for the more popular [JUnit4 Rules](https://github.com/junit-team/junit4/wiki/Rules). The upshot of these discussions seems to be enabling [limited support for JUnit4 rules on JUnit5](http://junit.org/junit5/docs/snapshot/user-guide/#migrating-from-junit4-rule-support).
 
 In a bid to fill a gap, this library provides implementations of some extensions which may prove useful until the suite of extensions provided by JUnit grows (or, in case it does not grow).

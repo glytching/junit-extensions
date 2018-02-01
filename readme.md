@@ -12,7 +12,7 @@ There have been discussions amongst the JUnit community (see [this](https://gith
 
 In a bid to fill a gap, this library provides implementations of some extensions which may prove useful until the suite of extensions provided by JUnit grows (or, in case it does not grow).
 
-Detailed usage instructions for each of the extensions is available in [the docs](https://glytching.github.io/junit-extensions/) but briefly ...
+Detailed usage instructions for each of the extensions are available in [the docs](https://glytching.github.io/junit-extensions/) but briefly ...
 
 ###### ExpectedExceptionExtension
 

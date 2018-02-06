@@ -171,6 +171,4 @@ public class ExpectedExceptionExtensionMetaTest {
   private Method getMethod(String methodName) throws NoSuchMethodException {
     return ExpectedExceptionExtensionTest.class.getMethod(methodName);
   }
-
-  public void foo() {}
 }

@@ -16,6 +16,8 @@
  */
 package io.github.glytching.junit.extension.exception;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.TestExecutionExceptionHandler;
 
@@ -23,6 +25,7 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import static io.github.glytching.junit.extension.util.ExtensionUtil.getStore;
 import static org.junit.platform.commons.util.AnnotationUtils.findAnnotation;
 import static org.junit.platform.commons.util.FunctionUtils.where;
 
@@ -53,11 +56,26 @@ import static org.junit.platform.commons.util.FunctionUtils.where;
  * }
  * </pre>
  *
+ * Note: since usage of this extension implies that the developer <i>expects</i> an exception to be
+ * thrown the following test case will fail since it throws no exception:
+ *
+ * <pre>
+ *   &#064;Test
+ *   &#064;ExpectedException(type = Throwable.class)
+ *   public void failsTestForMissingException() {}
+ * </pre>
+ *
+ * This is to avoid a false positive where a test is declared to expect an exception and passes even
+ * if no exception is thrown.
+ *
  * @see <a href="https://github.com/junit-team/junit4/wiki/Rules#expectedexception-rules">JUnit 4
  *     ExpectedException Rule</a>
  * @since 1.0.0
  */
-public class ExpectedExceptionExtension implements TestExecutionExceptionHandler {
+public class ExpectedExceptionExtension
+    implements TestExecutionExceptionHandler, AfterTestExecutionCallback {
+
+  private static final String KEY = "exceptionWasHandled";
 
   private final Function<Throwable, String> function;
 
@@ -81,14 +99,37 @@ public class ExpectedExceptionExtension implements TestExecutionExceptionHandler
     Optional<ExpectedException> optional =
         findAnnotation(extensionContext.getTestMethod(), ExpectedException.class);
     if (optional.isPresent()) {
+
       ExpectedException annotation = optional.get();
       if (throwable.getClass() == annotation.type()) {
         if (where(function, getPredicate(annotation)).test(throwable)) {
+          getStore(extensionContext, this.getClass()).put(KEY, true);
+
+          // swallow the exception because the caller has declared it to be expected
           return;
         }
       }
     }
     throw throwable;
+  }
+
+  /**
+   * The presence of {@link ExpectedException} on a test is a clear statement by the developer that
+   * some exception must be thrown by that test. Therefore, if the invocation arrives here without
+   * having been evaluated by {@link #handleTestExecutionException(ExtensionContext, Throwable)} and
+   * with no exception in the context then this expectation has not been met and rather than failing
+   * silently (and giving a false positive) the library will explicitly fail on this condition.
+   *
+   * @param extensionContext
+   * @throws Exception
+   */
+  @Override
+  public void afterTestExecution(ExtensionContext extensionContext) throws Exception {
+    Boolean exceptionWasHandled =
+        (Boolean) getStore(extensionContext, this.getClass()).getOrComputeIfAbsent(KEY, s -> false);
+    if (!exceptionWasHandled && !extensionContext.getExecutionException().isPresent()) {
+      Assertions.fail("Expected an exception but no exception was thrown!");
+    }
   }
 
   /**

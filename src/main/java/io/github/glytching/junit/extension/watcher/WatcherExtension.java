@@ -19,11 +19,12 @@ package io.github.glytching.junit.extension.watcher;
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
-import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
 import org.junit.jupiter.api.extension.ExtensionContext.Store;
 
 import java.lang.reflect.Method;
 import java.util.logging.Logger;
+
+import static io.github.glytching.junit.extension.util.ExtensionUtil.getStore;
 
 /**
  * The watcher extension logs test execution flow including:
@@ -83,7 +84,7 @@ public class WatcherExtension implements BeforeTestExecutionCallback, AfterTestE
   public void beforeTestExecution(ExtensionContext extensionContext) throws Exception {
     Method testMethod = extensionContext.getRequiredTestMethod();
     logger.info(String.format("Starting test [%s]", testMethod.getName()));
-    getStore(extensionContext).put(testMethod, System.currentTimeMillis());
+    getStore(extensionContext, this.getClass()).put(testMethod, System.currentTimeMillis());
   }
 
   /**
@@ -97,38 +98,9 @@ public class WatcherExtension implements BeforeTestExecutionCallback, AfterTestE
   @Override
   public void afterTestExecution(ExtensionContext extensionContext) throws Exception {
     Method testMethod = extensionContext.getRequiredTestMethod();
-    long start = getStore(extensionContext).remove(testMethod, long.class);
+    long start = getStore(extensionContext, this.getClass()).remove(testMethod, long.class);
     long duration = System.currentTimeMillis() - start;
 
     logger.info(String.format("Completed test [%s] in %sms", testMethod.getName(), duration));
-  }
-
-  /**
-   * Creates a {@link Store} for a {@link ExtensionContext} in the context of the given {@code
-   * extensionContext}. A {@link Store} is bound to an {@link ExtensionContext} so different test
-   * invocations do not share the same store. For example a test invocation on {@code
-   * ClassA.testMethodA} will have a different {@link Store} instance to that associated with a test
-   * invocation on {@code ClassA.testMethodB} or test invocation on {@code ClassC.testMethodC}.
-   *
-   * @param extensionContext the <em>context</em> in which the current test or container is being
-   *     executed
-   * @return a {@link Store} for the given {@code extensionContext}
-   */
-  private Store getStore(ExtensionContext extensionContext) {
-    return extensionContext.getStore(namespace(extensionContext));
-  }
-
-  /**
-   * Creates a {@link Namespace} in which {@link ExtensionContext}s are stored on creation for post
-   * execution restoration. Storing data in a custom namespace prevents accidental cross pollination
-   * of data between extensions and between different invocations within the lifecycle of a single
-   * extension.
-   *
-   * @param extensionContext the <em>context</em> in which the current test or container is being
-   *     executed
-   * @return a {@link Namespace} describing the scope for a single {@link ExtensionContext}
-   */
-  private Namespace namespace(ExtensionContext extensionContext) {
-    return Namespace.create(this.getClass(), extensionContext);
   }
 }

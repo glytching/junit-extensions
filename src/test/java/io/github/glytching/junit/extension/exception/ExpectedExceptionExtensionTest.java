@@ -27,6 +27,18 @@ public class ExpectedExceptionExtensionTest {
   }
 
   @Test
+  @ExpectedException(type = Throwable.class, messageIs = "Boom!")
+  public void canHandleASubClassOfTheExpectedExceptionType() throws Throwable {
+    throw new Exception("Boom!");
+  }
+
+  @Test
+  @ExpectedException(type = Exception.class)
+  public void canHandleAnExceptionWithAnyMessage() throws Throwable {
+    throw new Exception("some message");
+  }
+
+  @Test
   @ExpectedException(type = Exception.class, messageIs = "Boom!")
   public void canHandleAnException() throws Exception {
     throw new Exception("Boom!");

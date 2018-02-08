@@ -21,13 +21,18 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.opentest4j.AssertionFailedError;
 
 import java.lang.reflect.Method;
 import java.util.Optional;
+import java.util.function.Function;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.extension.ExtensionContext.Namespace.create;
+import static org.junit.jupiter.api.extension.ExtensionContext.Store;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 /**
@@ -39,7 +44,9 @@ import static org.mockito.Mockito.when;
 public class ExpectedExceptionExtensionMetaTest {
 
   private final ExpectedExceptionExtension sut = new ExpectedExceptionExtension();
+
   @Mock private ExtensionContext extensionContext;
+  @Mock private Store store;
 
   @BeforeEach
   public void initMocks() {
@@ -76,7 +83,7 @@ public class ExpectedExceptionExtensionMetaTest {
   @Test
   public void willRethrowIfTheExceptionMessageDoesNotStartWithTheExpectedExceptionMessage()
       throws Throwable {
-    givenExtensionContentWithMethod("canHandleARuntimeException");
+    givenExtensionContentWithMethod("canHandleAnExceptionWithAMessageWhichStartsWith");
 
     RuntimeException expected = new RuntimeException("Foo");
 
@@ -90,7 +97,7 @@ public class ExpectedExceptionExtensionMetaTest {
   @Test
   public void willRethrowIfTheExceptionMessageDoesNotContainTheExpectedExceptionMessage()
       throws Throwable {
-    givenExtensionContentWithMethod("canHandleARuntimeException");
+    givenExtensionContentWithMethod("canHandleAnExceptionWithAMessageWhichContains");
 
     RuntimeException expected = new RuntimeException("Bar");
 
@@ -99,6 +106,62 @@ public class ExpectedExceptionExtensionMetaTest {
             expected.getClass(),
             () -> sut.handleTestExecutionException(extensionContext, expected));
     assertThat(actual, is(expected));
+  }
+
+  /**
+   * @throws Throwable
+   * @see <a href="https://github.com/glytching/junit-extensions/issues/3"></a>
+   */
+  @Test
+  public void willAssertFailureIfAnExceptionIsNeitherThrownNorHandled() throws Throwable {
+    when(extensionContext.getStore(create(ExpectedExceptionExtension.class, extensionContext)))
+        .thenReturn(store);
+
+    // no exception was handled by the extension
+    when(store.getOrComputeIfAbsent(any(String.class), any(Function.class))).thenReturn(false);
+
+    // the extension context does not contain an exception
+    when(extensionContext.getExecutionException()).thenReturn(Optional.empty());
+
+    AssertionFailedError actual =
+        assertThrows(AssertionFailedError.class, () -> sut.afterTestExecution(extensionContext));
+    assertThat(actual.getMessage(), is("Expected an exception but no exception was thrown!"));
+  }
+
+  /**
+   * @throws Throwable
+   * @see <a href="https://github.com/glytching/junit-extensions/issues/3"></a>
+   */
+  @Test
+  public void willNotAssertFailureIfTheExceptionContextContainsAnException() throws Throwable {
+    when(extensionContext.getStore(create(ExpectedExceptionExtension.class, extensionContext)))
+        .thenReturn(store);
+
+    // no exception was handled by the extension
+    when(store.getOrComputeIfAbsent(any(String.class), any(Function.class))).thenReturn(false);
+
+    // the extension context contains an exception
+    when(extensionContext.getExecutionException()).thenReturn(Optional.of(new Exception("boom!")));
+
+    sut.afterTestExecution(extensionContext);
+  }
+
+  /**
+   * @throws Throwable
+   * @see <a href="https://github.com/glytching/junit-extensions/issues/3"></a>
+   */
+  @Test
+  public void willNotAssertFailureIfTheExceptionIsHandled() throws Throwable {
+    when(extensionContext.getStore(create(ExpectedExceptionExtension.class, extensionContext)))
+        .thenReturn(store);
+
+    // an exception was handled by the extension
+    when(store.getOrComputeIfAbsent(any(String.class), any(Function.class))).thenReturn(true);
+
+    // the extension context does not contains an exception
+    when(extensionContext.getExecutionException()).thenReturn(Optional.empty());
+
+    sut.afterTestExecution(extensionContext);
   }
 
   private void givenExtensionContentWithMethod(String methodName) throws NoSuchMethodException {

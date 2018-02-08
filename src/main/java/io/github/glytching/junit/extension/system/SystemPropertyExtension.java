@@ -17,14 +17,13 @@
 package io.github.glytching.junit.extension.system;
 
 import org.junit.jupiter.api.extension.*;
-import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
-import org.junit.jupiter.api.extension.ExtensionContext.Store;
 
 import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static io.github.glytching.junit.extension.util.ExtensionUtil.getStore;
 import static org.junit.platform.commons.util.AnnotationUtils.isAnnotated;
 
 /**
@@ -241,39 +240,10 @@ public class SystemPropertyExtension
 
   private void writeRestoreContext(
       ExtensionContext extensionContext, RestoreContext restoreContext) {
-    getStore(extensionContext).getOrComputeIfAbsent(KEY, key -> restoreContext);
+    getStore(extensionContext, this.getClass()).getOrComputeIfAbsent(KEY, key -> restoreContext);
   }
 
   private RestoreContext readRestoreContext(ExtensionContext extensionContext) {
-    return getStore(extensionContext).get(KEY, RestoreContext.class);
-  }
-
-  /**
-   * Creates a {@link Store} for a {@link RestoreContext} in the context of the given {@code
-   * extensionContext}. A {@link Store} is bound to an {@link ExtensionContext} so different test
-   * invocations do not share the same store. For example a test invocation on {@code
-   * ClassA.testMethodA} will have a different {@link Store} instance to that associated with a test
-   * invocation on {@code ClassA.testMethodB} or test invocation on {@code ClassC.testMethodC}.
-   *
-   * @param extensionContext the <em>context</em> in which the current test or container is being
-   *     executed
-   * @return a {@link Store} for the given {@code extensionContext}
-   */
-  private Store getStore(ExtensionContext extensionContext) {
-    return extensionContext.getRoot().getStore(namespace(extensionContext));
-  }
-
-  /**
-   * Creates a {@link Namespace} in which {@link RestoreContext}s are stored on creation for post
-   * execution restoration. Storing data in a custom namespace prevents accidental cross pollination
-   * of data between extensions and between different invocations within the lifecycle of a single
-   * extension.
-   *
-   * @param extensionContext the <em>context</em> in which the current test or container is being
-   *     executed
-   * @return a {@link Namespace} describing the scope for a single {@link RestoreContext}
-   */
-  private Namespace namespace(ExtensionContext extensionContext) {
-    return Namespace.create(this.getClass(), extensionContext);
+    return getStore(extensionContext, this.getClass()).get(KEY, RestoreContext.class);
   }
 }

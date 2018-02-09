@@ -37,6 +37,15 @@ Note: these are all case sensitive.
 
 #### Examples
 
+###### Expect a Throwable, with no expectation on the exception message
+
+```
+@Test
+@ExpectedException(type = Throwable.class)
+public void canHandleAThrowable() throws Throwable {
+    throw new Throwable("...");
+}
+```
 ###### Expect a Throwable with an exact match on the exception message
 
 ```
@@ -66,3 +75,25 @@ public void canHandleAnExceptionWithAMessageWhichContains() {
     throw new MyDomainException("Terribly sorry old chap");
 }
 ```
+
+Notes:
+
+Since usage of this extension implies that the developer _expects_ an exception to be thrown the following test case will fail since it throws no exception:
+
+```
+@Test
+@ExpectedException(type = Throwable.class)
+public void failsTestForMissingException() {}
+```
+
+The expected exception type will match on the given type and on any subclasses of that type. In other words, the following test will pass:
+
+```
+@Test
+@ExpectedException(type = Throwable.class, messageIs = "Boom!")
+public void canHandleAThrowable() throws Throwable {
+    throw new Exception("Boom!");
+}
+```
+
+This is for consistency with JUnit Jupiter, in which `AssertThrows` matches an exception type or any subclass of that exception type.

@@ -56,17 +56,30 @@ import static org.junit.platform.commons.util.FunctionUtils.where;
  * }
  * </pre>
  *
- * Note: since usage of this extension implies that the developer <i>expects</i> an exception to be
- * thrown the following test case will fail since it throws no exception:
+ * Notes:
  *
- * <pre>
+ * <ul>
+ *   <li>Since usage of this extension implies that the developer <i>expects</i> an exception to be
+ *       thrown the following test case will fail since it throws no exception:
+ *       <pre>
  *   &#064;Test
  *   &#064;ExpectedException(type = Throwable.class)
  *   public void failsTestForMissingException() {}
  * </pre>
- *
- * This is to avoid a false positive where a test is declared to expect an exception and passes even
- * if no exception is thrown.
+ *       This is to avoid a false positive where a test is declared to expect an exception and
+ *       passes even if no exception is thrown.
+ *   <li>The expected exception type will match on the given type and any subclasses of that type.
+ *       In other words, the following test will pass:
+ *       <pre>
+ *          &#064;Test
+ *          &#064;ExpectedException(type = Throwable.class, messageIs = "Boom!")
+ *          public void canHandleAThrowable() throws Throwable {
+ *              throw new Exception("Boom!");
+ *          }
+ *       </pre>
+ *       This is for consistency with JUnit Jupiter, in which <code>AssertThrows</code> matches an
+ *       exception type or any subclass of that exception type.
+ * </ul>
  *
  * @see <a href="https://github.com/junit-team/junit4/wiki/Rules#expectedexception-rules">JUnit 4
  *     ExpectedException Rule</a>
@@ -101,7 +114,8 @@ public class ExpectedExceptionExtension
     if (optional.isPresent()) {
 
       ExpectedException annotation = optional.get();
-      if (throwable.getClass() == annotation.type()) {
+      // see https://github.com/glytching/junit-extensions/issues/5
+      if (annotation.type().isAssignableFrom(throwable.getClass())) {
         if (where(function, getPredicate(annotation)).test(throwable)) {
           getStore(extensionContext, this.getClass()).put(KEY, true);
 
@@ -145,9 +159,11 @@ public class ExpectedExceptionExtension
       return s -> s.startsWith(annotation.messageStartsWith());
     } else if (has(annotation.messageContains())) {
       return s -> s.contains(annotation.messageContains());
+    } else if (has(annotation.messageIs())) {
+      return s -> s.equals(annotation.messageIs());
     } else {
       // the default
-      return s -> s.equals(annotation.messageIs());
+      return s -> true;
     }
   }
 

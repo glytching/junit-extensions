@@ -76,6 +76,18 @@ public class TemporaryFolderExtensionParameterTest {
     assertThat(dir.exists(), is(true));
   }
 
+  @Test
+  @ExtendWith(TemporaryFolderExtension.class)
+  public void canGetTheRootFolderWhenATemporaryFolderIsInjectedAsAParameter(TemporaryFolder temporaryFolder)
+      throws IOException {
+    File root = temporaryFolder.getRoot();
+
+    assertThat(root.exists(), is(true));
+
+    File dir = temporaryFolder.createDirectory("bar");
+    assertThat(dir.getParentFile(), is(root));
+  }
+
   @RepeatedTest(5)
   @ExtendWith(TemporaryFolderExtension.class)
   public void willCreateANewTemporaryFileEveryTime(TemporaryFolder temporaryFolder)

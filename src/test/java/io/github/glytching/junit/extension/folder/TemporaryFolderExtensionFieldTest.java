@@ -81,6 +81,15 @@ public class TemporaryFolderExtensionFieldTest {
     assertThat(dir.exists(), is(true));
   }
 
+  @Test
+  public void canGetTheRootFolderWhenATemporaryFolderIsInjectedAsAField() throws IOException {
+    File root = temporaryFolder.getRoot();
+    assertThat(root.exists(), is(true));
+
+    File dir = temporaryFolder.createDirectory("bar");
+    assertThat(dir.getParentFile(), is(root));
+  }
+
   @RepeatedTest(5)
   public void willCreateANewTemporaryFileEveryTime() throws IOException {
     File file = temporaryFolder.createFile("foo.txt");

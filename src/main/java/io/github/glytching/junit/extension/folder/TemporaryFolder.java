@@ -57,6 +57,23 @@ public class TemporaryFolder {
   }
 
   /**
+   * Returns the root folder. Exposing this offers some back compatability with JUnit4's {@code
+   * TemporaryFolder} so test cases which are used to invoking {@code getRoot()} on a JUnit4 rule
+   * can adopt the same approach with this {@code TemporaryFolder}. In addition, this may be useful
+   * where you want to use the root folder itself without creating files or directories within it.
+   *
+   * <p><b>Note:</b> the extension is responsible for creating/managing/destroying the root folder
+   * so don't bother trying to clean it up yourself and don't expect that anything you do to it will
+   * survive post-test-cleanup.
+   *
+   * @see <a href="https://github.com/glytching/junit-extensions/issues/8">Issue 8</a>
+   * @return the root folder
+   */
+  public File getRoot() {
+    return rootFolder;
+  }
+
+  /**
    * Create a file within the temporary folder root.
    *
    * @param fileName the name of the file to be created

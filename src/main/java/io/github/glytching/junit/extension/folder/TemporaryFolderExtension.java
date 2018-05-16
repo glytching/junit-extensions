@@ -73,6 +73,10 @@ import static io.github.glytching.junit.extension.util.ExtensionUtil.getStore;
  *
  *     &#064;Test
  *     public void testUsingTemporaryDirectory() {
+ *         // use the temporary folder itself
+ *         File root = temporaryFolder.getRoot();
+ *
+ *         // create a sub directory within the temporary folder
  *         File file = temporaryFolder.createDirectory("foo");
  *         // ...
  *     }
@@ -94,6 +98,10 @@ import static io.github.glytching.junit.extension.util.ExtensionUtil.getStore;
  *     &#064;Test
  *     &#064;ExtendWith(TemporaryFolderExtension.class)
  *     public void testUsingTemporaryDirectory(TemporaryFolder temporaryFolder) {
+ *         // use the temporary folder itself
+ *         File root = temporaryFolder.getRoot();
+ *
+ *         // create a sub directory within the temporary folder
  *         File file = temporaryFolder.createDirectory("foo");
  *         // ...
  *     }

@@ -21,9 +21,14 @@ public class MyTest {
  
     @Test
     public void canUseTemporaryFolder() throws IOException {
+        // use the temporary folder itself
+        File root = temporaryFolder.getRoot();
+
+        // create a file within the temporary folder
         File file = temporaryFolder.createFile("foo.txt");
         assertThat(file.exists(), is(true));
  
+        // create a directory within the temporary folder
         File dir = temporaryFolder.createDirectory("bar");
         assertThat(dir.exists(), is(true));
     } 
@@ -38,9 +43,14 @@ public class MyTest {
     @Test
     @ExtendWith(TemporaryFolderExtension.class)
     public void canUseTemporaryFolder(TemporaryFolder temporaryFolder) throws IOException {
+        // use the temporary folder itself
+        File root = temporaryFolder.getRoot();
+
+        // create a file within the temporary folder    
         File file = temporaryFolder.createFile("foo.txt");
         assertThat(file.exists(), is(true));
     
+        // create a directory within the temporary folder
         File dir = temporaryFolder.createDirectory("bar");
         assertThat(dir.exists(), is(true));
     }

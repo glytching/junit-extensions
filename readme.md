@@ -37,7 +37,7 @@ The `junit-extensions` library is available on [Maven Central](http://search.mav
 <dependency>
     <groupId>io.github.glytching</groupId>
     <artifactId>junit-extensions</artifactId>
-    <version>2.1.0</version>
+    <version>2.2.0</version>
     <scope>test</scope>
 </dependency>
 ```

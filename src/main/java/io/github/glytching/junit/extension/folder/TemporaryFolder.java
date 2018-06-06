@@ -24,6 +24,8 @@ import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 
+import org.junit.jupiter.api.extension.ExtensionContext.Store.CloseableResource;
+
 import static java.nio.file.FileVisitResult.CONTINUE;
 
 /**
@@ -31,8 +33,8 @@ import static java.nio.file.FileVisitResult.CONTINUE;
  * with the operations which a tester may wish to invoke ({@link #createFile(String)}, {@link
  * #createDirectory(String)}) and post test invocations which the associated extension will invoke.
  */
-@SuppressWarnings("ResultOfMethodCallIgnored")
-public class TemporaryFolder {
+@SuppressWarnings({ "ResultOfMethodCallIgnored", "nls" })
+public class TemporaryFolder implements CloseableResource {
   private static final String FILE_PREFIX = "junit";
   private static final String FILE_SUFFIX = ".tmp";
 
@@ -136,5 +138,10 @@ public class TemporaryFolder {
       // delete the parent
       rootFolder.delete();
     }
+  }
+  
+  @Override
+  public void close() throws Throwable {
+    destroy();
   }
 }

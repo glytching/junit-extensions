@@ -17,6 +17,7 @@
 package io.github.glytching.junit.extension.folder;
 
 import org.junit.jupiter.api.extension.*;
+import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
 
 import static io.github.glytching.junit.extension.util.ExtensionUtil.getStore;
 
@@ -112,29 +113,9 @@ import static io.github.glytching.junit.extension.util.ExtensionUtil.getStore;
  *     TemporaryFolder Rule</a>
  * @since 1.0.0
  */
-public class TemporaryFolderExtension implements AfterEachCallback, ParameterResolver {
+public class TemporaryFolderExtension implements ParameterResolver {
 
-  private static final String KEY = "temporaryFolder";
-
-  /**
-   * If there is a {@link TemporaryFolder} associated with the current {@code extensionContext} then
-   * destroy it.
-   *
-   * @param extensionContext the <em>context</em> in which the current test or container is being
-   *     executed
-   */
-  @Override
-  public void afterEach(ExtensionContext extensionContext) {
-    TemporaryFolder temporaryFolder =
-        getStore(extensionContext, this.getClass()).get(KEY, TemporaryFolder.class);
-    if (temporaryFolder != null) {
-      try {
-        temporaryFolder.destroy();
-      } catch (Exception e) {
-        // silent failures
-      }
-    }
-  }
+  private static final Namespace NAMESPACE = Namespace.create(TemporaryFolderExtension.class);
 
   /**
    * Does this extension support injection for parameters of the type described by the given {@code
@@ -168,8 +149,8 @@ public class TemporaryFolderExtension implements AfterEachCallback, ParameterRes
   public Object resolveParameter(
       ParameterContext parameterContext, ExtensionContext extensionContext)
       throws ParameterResolutionException {
-    return getStore(extensionContext, this.getClass())
-        .getOrComputeIfAbsent(KEY, key -> new TemporaryFolder());
+    return extensionContext.getStore(NAMESPACE).getOrComputeIfAbsent(parameterContext, key -> new TemporaryFolder(),
+        TemporaryFolder.class);
   }
 
   private boolean appliesTo(Class<?> clazz) {

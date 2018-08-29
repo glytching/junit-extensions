@@ -2,7 +2,7 @@ package io.github.glytching.junit.extension.util;
 
 import org.junit.jupiter.api.extension.ExtensionContext;
 
-public class ExtensionUtil {
+public final class ExtensionUtil {
 
   // this is a utility class - hide the public ctor
   private ExtensionUtil() {}

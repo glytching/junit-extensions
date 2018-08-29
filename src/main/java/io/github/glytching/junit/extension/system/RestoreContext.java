@@ -30,7 +30,7 @@ import java.util.Set;
  *   <li>If an existing system property was overwritten then we reinstate its original value
  * </ul>
  */
-class RestoreContext {
+final class RestoreContext {
   private final Set<String> propertyNames;
   private final Map<String, String> restoreProperties;
 
@@ -41,8 +41,8 @@ class RestoreContext {
    * @param restoreProperties
    */
   private RestoreContext(Set<String> propertyNames, Map<String, String> restoreProperties) {
-    this.propertyNames = propertyNames;
-    this.restoreProperties = restoreProperties;
+    this.propertyNames = new HashSet<>(propertyNames);
+    this.restoreProperties = new HashMap<>(restoreProperties);
   }
 
   public static Builder createBuilder() {
@@ -72,7 +72,7 @@ class RestoreContext {
    * Simple builder implementation allowing a {@link RestoreContext} to be built up as we walk
    * through system property configuration.
    */
-  static class Builder {
+  final static class Builder {
     private final Set<String> properties;
     private final Map<String, String> restoreProperties;
 

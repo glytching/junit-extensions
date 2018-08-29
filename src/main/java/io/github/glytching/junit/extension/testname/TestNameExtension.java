@@ -60,7 +60,7 @@ public class TestNameExtension implements BeforeTestExecutionCallback, AfterTest
 
   @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
   private void setTestNameFieldValue(
-      Optional<Field> testNameField, Object testInstance, String value) throws Exception {
+      Optional<Field> testNameField, Object testInstance, String value) throws IllegalAccessException {
     if (testNameField.isPresent()) {
       testNameField.get().setAccessible(true);
       testNameField.get().set(testInstance, value);

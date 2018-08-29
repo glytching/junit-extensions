@@ -18,10 +18,7 @@ package io.github.glytching.junit.extension.folder;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.FileVisitResult;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.SimpleFileVisitor;
+import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 
 import static java.nio.file.FileVisitResult.CONTINUE;
@@ -49,10 +46,10 @@ public class TemporaryFolder {
   TemporaryFolder() {
     try {
       rootFolder = File.createTempFile(FILE_PREFIX, FILE_SUFFIX);
-      rootFolder.delete();
-      rootFolder.mkdir();
+      Files.delete(rootFolder.toPath());
+      Files.createDirectory(rootFolder.toPath());
     } catch (IOException ex) {
-      throw new RuntimeException(ex);
+      throw new TemporaryFolderException("Failed to prepare root folder!", ex);
     }
   }
 
@@ -81,11 +78,8 @@ public class TemporaryFolder {
    * @throws IOException in case the file creation call fails
    */
   public File createFile(String fileName) throws IOException {
-    File result = new File(rootFolder, fileName);
-
-    result.createNewFile();
-
-    return result;
+    Path path = Paths.get(rootFolder.getPath(), fileName);
+    return Files.createFile(path).toFile();
   }
 
   /**
@@ -95,11 +89,13 @@ public class TemporaryFolder {
    * @return the directory instance
    */
   public File createDirectory(String directoryName) {
-    File result = new File(rootFolder, directoryName);
-
-    result.mkdirs();
-
-    return result;
+    Path path = Paths.get(rootFolder.getPath(), directoryName);
+    try {
+      return Files.createDirectory(path).toFile();
+    } catch (IOException ex) {
+      throw new TemporaryFolderException(
+          String.format("Failed to create directory: '%s'", path.toString()), ex);
+    }
   }
 
   /**
@@ -134,7 +130,7 @@ public class TemporaryFolder {
           });
 
       // delete the parent
-      rootFolder.delete();
+      Files.delete(rootFolder.toPath());
     }
   }
 }

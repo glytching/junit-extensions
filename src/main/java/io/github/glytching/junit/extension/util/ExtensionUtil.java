@@ -4,6 +4,9 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 
 public class ExtensionUtil {
 
+  // this is a utility class - hide the public ctor
+  private ExtensionUtil() {}
+
   /**
    * Creates a {@link ExtensionContext.Store} for a given {@code extensionContext}. A {@link
    * ExtensionContext.Store} is bound to an {@link ExtensionContext} so different test invocations
@@ -29,7 +32,8 @@ public class ExtensionUtil {
    *     executed
    * @return a {@link ExtensionContext.Namespace} describing the scope for an extension
    */
-  private static ExtensionContext.Namespace namespace(ExtensionContext extensionContext, Class clazz) {
+  private static ExtensionContext.Namespace namespace(
+      ExtensionContext extensionContext, Class clazz) {
     return ExtensionContext.Namespace.create(clazz, extensionContext);
   }
 }

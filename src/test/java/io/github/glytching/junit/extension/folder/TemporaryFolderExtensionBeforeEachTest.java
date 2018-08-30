@@ -35,7 +35,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 @ExtendWith(TemporaryFolderExtension.class)
-public class TemporaryFolderExtensionFieldTest {
+public class TemporaryFolderExtensionBeforeEachTest {
 
   // gather the temporary file and directory paths to facilitate assertions on (a) the distinct-ness
   // of the temporary folder address supplied to each test and (b) the removal of each temporary

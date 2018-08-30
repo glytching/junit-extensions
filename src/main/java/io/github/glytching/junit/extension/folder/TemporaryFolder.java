@@ -16,6 +16,8 @@
  */
 package io.github.glytching.junit.extension.folder;
 
+import org.junit.jupiter.api.extension.ExtensionContext.Store.CloseableResource;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
@@ -28,8 +30,8 @@ import static java.nio.file.FileVisitResult.CONTINUE;
  * with the operations which a tester may wish to invoke ({@link #createFile(String)}, {@link
  * #createDirectory(String)}) and post test invocations which the associated extension will invoke.
  */
-@SuppressWarnings("ResultOfMethodCallIgnored")
-public class TemporaryFolder {
+@SuppressWarnings({"ResultOfMethodCallIgnored", "nls"})
+public class TemporaryFolder implements CloseableResource {
   private static final String FILE_PREFIX = "junit";
   private static final String FILE_SUFFIX = ".tmp";
 
@@ -51,6 +53,11 @@ public class TemporaryFolder {
     } catch (IOException ex) {
       throw new TemporaryFolderException("Failed to prepare root folder!", ex);
     }
+  }
+
+  @Override
+  public void close() throws Throwable {
+    destroy();
   }
 
   /**
@@ -129,8 +136,10 @@ public class TemporaryFolder {
             }
           });
 
-      // delete the parent
-      Files.delete(rootFolder.toPath());
+      if (rootFolder.exists()) {
+        // delete the parent, if it still exists
+        Files.delete(rootFolder.toPath());
+      }
     }
   }
 }

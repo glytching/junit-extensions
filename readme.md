@@ -14,6 +14,7 @@ There have been discussions amongst the JUnit community (see [this](https://gith
 | `v2.0.0`  | [Maven Central](http://repo1.maven.org/maven2/io/github/glytching/junit-extensions/2.0.0/), [Javadocs](http://www.javadoc.io/doc/io.github.glytching/junit-extensions/2.0.0) | 
 | `v2.1.0`  | [Maven Central](http://repo1.maven.org/maven2/io/github/glytching/junit-extensions/2.1.0/), [Javadocs](http://www.javadoc.io/doc/io.github.glytching/junit-extensions/2.1.0) | 
 | `v2.2.0`  | [Maven Central](http://repo1.maven.org/maven2/io/github/glytching/junit-extensions/2.2.0/), [Javadocs](http://www.javadoc.io/doc/io.github.glytching/junit-extensions/2.2.0) |
+| `v2.3.0`  | [Maven Central](http://repo1.maven.org/maven2/io/github/glytching/junit-extensions/2.3.0/), [Javadocs](http://www.javadoc.io/doc/io.github.glytching/junit-extensions/2.3.0) |
 
 ### Documentation
 

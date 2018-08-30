@@ -1,5 +1,8 @@
 language: java
 sudo: false
+
+bundler_args: --retry 5
+
 script: mvn verify jacoco:report coveralls:report -DrepoToken=w7KlgSEVtzzJRRCxI84aCx3kwKOy0DR0r
 
 notifications:

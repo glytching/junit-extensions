@@ -16,18 +16,22 @@
  */
 package io.github.glytching.junit.extension.folder;
 
-import org.junit.jupiter.api.extension.*;
-
-import static io.github.glytching.junit.extension.util.ExtensionUtil.getStore;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
+import org.junit.jupiter.api.extension.ParameterContext;
+import org.junit.jupiter.api.extension.ParameterResolutionException;
+import org.junit.jupiter.api.extension.ParameterResolver;
 
 /**
  * The temporary folder extension provides a test with access to temporary files and directories.
  * The temporary folder extension provides a {@link TemporaryFolder} which you can use to create a
  * temporary file or directory for use by your test. The {@link TemporaryFolder} can be injected
- * into your test or test case with either of the following approaches:
+ * into your test or test case with any of the following approaches:
  *
  * <ul>
- *   <li>Parameter injection into a {@code @BeforeEach} method. For example:
+ *   <li>Instance variable injection into a {@code @BeforeEach} method. The {@link TemporaryFolder}
+ *       will be destroyed during {@code @AfterEach} and no exception will be thrown in cases where
+ *       the deletion fails. For example:
  *       <pre>
  *  private TemporaryFolder temporaryFolder;
  *
@@ -37,17 +41,29 @@ import static io.github.glytching.junit.extension.util.ExtensionUtil.getStore;
  *      // ...
  *  }
  * </pre>
- *   <li>Parameter injection into a {@code @Test} method. For example:
+ *   <li>Parameter injection into a {@code @Test} method. The {@link TemporaryFolder} will be
+ *       destroyed during {@code @AfterEach} and no exception will be thrown in cases where the
+ *       deletion fails. For example:
  *       <pre>
  *  &#064;Test
  *  public void testUsingTemporaryFolder(TemporaryFolder temporaryFolder) {
  *      // ...
  *  }
  * </pre>
- * </ul>
+ *   <li>Class variable injection using a {@code @BeforeAll} method. Note: in this case <b>all</b>
+ *       tests in the test case will share the same instance of the {@code TemporaryFolder}. The
+ *       {@link TemporaryFolder} will be destroyed after any {@code @AfterAll} method completes and
+ *       no exception will be thrown in cases where the deletion fails. For example:
+ *       <pre>
+ *  private static TemporaryFolder TEMPORARY_FOLDER;
  *
- * <p>In both approaches the {@link TemporaryFolder} will be destroyed during {@code @AfterEach} and
- * no exception will be thrown in cases where the deletion fails.
+ *  &#064;BeforeAll
+ *  public static void setUp(TemporaryFolder givenTemporaryFolder) {
+ *      TEMPORARY_FOLDER = givenTemporaryFolder
+ *      // ...
+ *  }
+ * </pre>
+ * </ul>
  *
  * <p>Usage examples:
  *
@@ -112,29 +128,9 @@ import static io.github.glytching.junit.extension.util.ExtensionUtil.getStore;
  *     TemporaryFolder Rule</a>
  * @since 1.0.0
  */
-public class TemporaryFolderExtension implements AfterEachCallback, ParameterResolver {
+public class TemporaryFolderExtension implements ParameterResolver {
 
-  private static final String KEY = "temporaryFolder";
-
-  /**
-   * If there is a {@link TemporaryFolder} associated with the current {@code extensionContext} then
-   * destroy it.
-   *
-   * @param extensionContext the <em>context</em> in which the current test or container is being
-   *     executed
-   */
-  @Override
-  public void afterEach(ExtensionContext extensionContext) {
-    TemporaryFolder temporaryFolder =
-        getStore(extensionContext, this.getClass()).get(KEY, TemporaryFolder.class);
-    if (temporaryFolder != null) {
-      try {
-        temporaryFolder.destroy();
-      } catch (Exception e) {
-        // silent failures
-      }
-    }
-  }
+  private static final Namespace NAMESPACE = Namespace.create(TemporaryFolderExtension.class);
 
   /**
    * Does this extension support injection for parameters of the type described by the given {@code
@@ -168,8 +164,10 @@ public class TemporaryFolderExtension implements AfterEachCallback, ParameterRes
   public Object resolveParameter(
       ParameterContext parameterContext, ExtensionContext extensionContext)
       throws ParameterResolutionException {
-    return getStore(extensionContext, this.getClass())
-        .getOrComputeIfAbsent(KEY, key -> new TemporaryFolder());
+    return extensionContext
+        .getStore(NAMESPACE)
+        .getOrComputeIfAbsent(
+            parameterContext, key -> new TemporaryFolder(), TemporaryFolder.class);
   }
 
   private boolean appliesTo(Class<?> clazz) {

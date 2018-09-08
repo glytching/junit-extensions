@@ -25,7 +25,7 @@ There have been discussions amongst the JUnit community (see [this](https://gith
 
 ### Using JUnit-Extensions
 
-The `junit-extensions` library is available on [Maven Central](http://search.maven.org/#artifactdetails%7Cio.github.glytching%7Cjunit-extensions%7C1.1.0%7Cjar):
+The `junit-extensions` library is available on [Maven Central](http://search.maven.org/#artifactdetails%7Cio.github.glytching%7Cjunit-extensions%7C2.3.0%7Cjar):
 
 #### Maven 
 

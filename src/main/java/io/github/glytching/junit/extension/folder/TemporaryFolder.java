@@ -47,9 +47,10 @@ public class TemporaryFolder implements CloseableResource {
    */
   TemporaryFolder() {
     try {
-      rootFolder = File.createTempFile(FILE_PREFIX, FILE_SUFFIX);
-      Files.delete(rootFolder.toPath());
-      Files.createDirectory(rootFolder.toPath());
+      // do not use Files.createTempFile to create a directory
+      // see https://rules.sonarsource.com/java/RSPEC-2976
+      Path tempPath = Files.createTempDirectory(FILE_PREFIX);
+      rootFolder = tempPath.toFile();
     } catch (IOException ex) {
       throw new TemporaryFolderException("Failed to prepare root folder!", ex);
     }

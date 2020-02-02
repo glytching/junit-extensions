@@ -140,3 +140,45 @@ public class RandomBeansExtensionParameterTest {
     }
 }
 ```
+
+##### Providing Randomization parameters 
+In some cases if you want to provide [Randomization parameters](https://github.com/j-easy/easy-random/wiki/Randomization-parameters), In that case you need to register extension using `    @RegisterExtension
+`      
+```
+public class RandomBeansExtensionProgrammaticRegistrationTest {
+
+    static EnhancedRandom enhancedRandom = EnhancedRandomBuilder
+            .aNewEnhancedRandomBuilder()
+            .exclude(FieldDefinitionBuilder
+                    .field()
+                    .named("wotsits")
+                    .ofType(List.class)
+                    .inClass(DomainObject.class)
+                    .get())
+            .randomize(Integer.class, IntegerRangeRandomizer.aNewIntegerRangeRandomizer(0, 10))
+            .randomize(String.class, StringRandomizer.aNewStringRandomizer(5))
+            .randomize(Double.class, DoubleRangeRandomizer.aNewDoubleRangeRandomizer(0.0, 10.0))
+            .build();
+
+    
+    @RegisterExtension
+    static RandomBeansExtension randomBeansExtension = new RandomBeansExtension(enhancedRandom);
+
+   
+    @Test
+     public void canInjectIntegerInRangeOf(
+            @Random(type = Integer.class) Integer anyInteger) throws Exception {
+            // supplied with Random Integer in  range of 0,10
+      }
+      
+      @Test
+      public void canInjectDoubleInRangeOf(
+                 @Random(type = Double.class) Double anyDouble) throws Exception {
+                  // supplied with Random Double in  range of 0.0,10.0
+      }  
+       @Test
+       public void canInjectAPartiallyPopulatedObject(@Random DomainObject domainObject) {
+         // supplied with DomainObject excluding property wotsits of type List 
+       }  
+}
+```

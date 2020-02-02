@@ -157,6 +157,20 @@ public class RandomBeansExtension implements TestInstancePostProcessor, Paramete
   }
 
   /**
+   * Initialize random bean with provided configuration.
+   * Custom configuration can be provided by Registering RandomBeanExtension using @RegisterExtension annotation
+   *
+   * Registering RandomBean extension using programmatic approach allows to overrider any default configuration
+   * of random bean
+   *
+   * @param enhancedRandom
+   */
+  public RandomBeansExtension(EnhancedRandom enhancedRandom) {
+    this.random = enhancedRandom;
+
+  }
+
+  /**
    * Does this extension support injection for parameters of the type described by the given {@code
    * parameterContext}?
    *

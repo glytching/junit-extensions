@@ -121,14 +121,13 @@ public class RandomBeansExtension implements TestInstancePostProcessor, Paramete
   private final EnhancedRandom random;
 
   /**
-   * Create the extension with its encapsulated {@link EnhancedRandom}.
+   * Create the extension with a default {@link EnhancedRandom}.
    *
    * @see <a href="https://github.com/benas/random-beans/wiki/Randomization-parameters">Enhanced
    *     Random Configuration Parameters</a>
    */
   public RandomBeansExtension() {
-    this.random =
-        EnhancedRandomBuilder.aNewEnhancedRandomBuilder()
+    this(EnhancedRandomBuilder.aNewEnhancedRandomBuilder()
             // maximum number of instances of a given type, above this number requests will start to
             // reuse
             // previously generated instances
@@ -153,15 +152,13 @@ public class RandomBeansExtension implements TestInstancePostProcessor, Paramete
 
             // do not override any values which are already initialised in the target type
             .overrideDefaultInitialization(false)
-            .build();
+            .build());
   }
 
   /**
-   * Initialize random bean with provided configuration.
-   * Custom configuration can be provided by Registering RandomBeanExtension using @RegisterExtension annotation
-   *
-   * Registering RandomBean extension using programmatic approach allows to overrider any default configuration
-   * of random bean
+   * Create the extension with the given {@link EnhancedRandom}. This is used, instead of the zero-arg alternative, when
+   * the caller wants to override the default 'randomizer' configuration. This constructor will be called by using the
+   * {@code RegisterExtension} annotation.
    *
    * @param enhancedRandom
    */

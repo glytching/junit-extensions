@@ -141,9 +141,10 @@ public class RandomBeansExtensionParameterTest {
 }
 ```
 
-##### Providing Randomization parameters 
-In some cases if you want to provide [Randomization parameters](https://github.com/j-easy/easy-random/wiki/Randomization-parameters), In that case you need to register extension using `    @RegisterExtension
-`      
+##### Overriding the Default Randomization Parameters
+ 
+In the event that the default [randomization parameters](https://github.com/j-easy/easy-random/wiki/Randomization-parameters) declared by this extension are not sufficient/appropriate for your use, you can override the defaults by using `@RegisterExtension` to pass in your own instance of RandomBeans' `EnhancedRandom`. For example:      
+
 ```
 public class RandomBeansExtensionProgrammaticRegistrationTest {
 
@@ -163,22 +164,21 @@ public class RandomBeansExtensionProgrammaticRegistrationTest {
     
     @RegisterExtension
     static RandomBeansExtension randomBeansExtension = new RandomBeansExtension(enhancedRandom);
-
    
     @Test
-     public void canInjectIntegerInRangeOf(
-            @Random(type = Integer.class) Integer anyInteger) throws Exception {
-            // supplied with Random Integer in  range of 0,10
-      }
+    public void canInjectIntegerInRangeOf(
+        @Random(type = Integer.class) Integer anyInteger) throws Exception {
+        assertThat(anyInteger, notNullValue());
+        assertThat(anyInteger, lessThanOrEqualTo(10));
+        assertThat(anyInteger, greaterThanOrEqualTo(0));
+    }
       
-      @Test
-      public void canInjectDoubleInRangeOf(
-                 @Random(type = Double.class) Double anyDouble) throws Exception {
-                  // supplied with Random Double in  range of 0.0,10.0
-      }  
-       @Test
-       public void canInjectAPartiallyPopulatedObject(@Random DomainObject domainObject) {
-         // supplied with DomainObject excluding property wotsits of type List 
-       }  
+    @Test
+    public void canInjectDoubleInRangeOf(
+        @Random(type = Double.class) Double anyDouble) throws Exception {
+        assertThat(anyDouble, notNullValue());
+        assertThat(anyDouble, lessThanOrEqualTo(10.0));
+        assertThat(anyDouble, greaterThanOrEqualTo(0.0));
+    }
 }
 ```

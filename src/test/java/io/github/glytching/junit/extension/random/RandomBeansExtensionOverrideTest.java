@@ -37,8 +37,7 @@ import static io.github.glytching.junit.extension.util.AssertionUtil.getDefaultS
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-public class RandomBeansExtensionProgrammaticRegistrationTest {
-
+public class RandomBeansExtensionOverrideTest {
 
     static EnhancedRandom enhancedRandom = EnhancedRandomBuilder
             .aNewEnhancedRandomBuilder()
@@ -60,8 +59,6 @@ public class RandomBeansExtensionProgrammaticRegistrationTest {
     // each test
     private final Set<String> anyStrings = new HashSet<>();
 
-
-
     @Test
     @RepeatedTest(5)
     public void canOverrideDefaultIntegerRangeByProgrammaticExtensionRegistration(
@@ -77,6 +74,7 @@ public class RandomBeansExtensionProgrammaticRegistrationTest {
             @Random(type = Double.class) Double anyDouble) throws Exception {
         assertThat(anyDouble, notNullValue());
         assertThat(anyDouble, lessThanOrEqualTo(10.0));
+        assertThat(anyDouble, greaterThanOrEqualTo(0.0));
     }
 
     @Test
@@ -136,7 +134,6 @@ public class RandomBeansExtensionProgrammaticRegistrationTest {
         assertThat(anyCollection, not(empty()));
         assertThat(anyCollection.size(), is(getDefaultSizeOfRandom()));
     }
-
 
     @RepeatedTest(5)
     public void willInjectANewRandomValueEachTimeWithProgrammaticExtensionRegistration(@Random String anyString) {

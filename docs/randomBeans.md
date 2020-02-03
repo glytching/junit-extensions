@@ -140,3 +140,45 @@ public class RandomBeansExtensionParameterTest {
     }
 }
 ```
+
+##### Overriding the Default Randomization Parameters
+ 
+In the event that the default [randomization parameters](https://github.com/j-easy/easy-random/wiki/Randomization-parameters) declared by this extension are not sufficient/appropriate for your use, you can override the defaults by using `@RegisterExtension` to pass in your own instance of RandomBeans' `EnhancedRandom`. For example:      
+
+```
+public class RandomBeansExtensionProgrammaticRegistrationTest {
+
+    static EnhancedRandom enhancedRandom = EnhancedRandomBuilder
+            .aNewEnhancedRandomBuilder()
+            .exclude(FieldDefinitionBuilder
+                    .field()
+                    .named("wotsits")
+                    .ofType(List.class)
+                    .inClass(DomainObject.class)
+                    .get())
+            .randomize(Integer.class, IntegerRangeRandomizer.aNewIntegerRangeRandomizer(0, 10))
+            .randomize(String.class, StringRandomizer.aNewStringRandomizer(5))
+            .randomize(Double.class, DoubleRangeRandomizer.aNewDoubleRangeRandomizer(0.0, 10.0))
+            .build();
+
+    
+    @RegisterExtension
+    static RandomBeansExtension randomBeansExtension = new RandomBeansExtension(enhancedRandom);
+   
+    @Test
+    public void canInjectIntegerInRangeOf(
+        @Random(type = Integer.class) Integer anyInteger) throws Exception {
+        assertThat(anyInteger, notNullValue());
+        assertThat(anyInteger, lessThanOrEqualTo(10));
+        assertThat(anyInteger, greaterThanOrEqualTo(0));
+    }
+      
+    @Test
+    public void canInjectDoubleInRangeOf(
+        @Random(type = Double.class) Double anyDouble) throws Exception {
+        assertThat(anyDouble, notNullValue());
+        assertThat(anyDouble, lessThanOrEqualTo(10.0));
+        assertThat(anyDouble, greaterThanOrEqualTo(0.0));
+    }
+}
+```

@@ -161,6 +161,7 @@ public class RandomBeansExtension implements TestInstancePostProcessor, Paramete
    * {@code RegisterExtension} annotation.
    *
    * @param enhancedRandom
+   * @since 2.5.0
    */
   public RandomBeansExtension(EnhancedRandom enhancedRandom) {
     this.random = enhancedRandom;

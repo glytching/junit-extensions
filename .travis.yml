@@ -1,7 +1,7 @@
 language: java
 
 jdk:
-  - oraclejdk8
+  - openjdk8
 
 # workaround this issue: https://github.com/travis-ci/travis-ci/issues/6593
 sudo: true

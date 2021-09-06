@@ -57,7 +57,7 @@
         <junit.jupiter.version>5.2.0</junit.jupiter.version>
         <hamcrest.version>1.3</hamcrest.version>
         <mockito.version>2.7.19</mockito.version>
-        <random.beans.version>3.7.0</random.beans.version>
+        <random.beans.version>3.9.0</random.beans.version>
 
         <maven.surefire.plugin.version>2.22.0</maven.surefire.plugin.version>
         <maven.jar.plugin.version>3.0.2</maven.jar.plugin.version>

@@ -93,7 +93,8 @@ public class RandomBeansExtensionOverrideTest {
 
     @Test
     public void canInjectAPartiallyPopulatedRandomObjectWithProgrammaticExtensionRegistration(@Random DomainObject domainObject) {
-        assertThat(domainObject.getWotsits(), nullValue());
+        assertThat(domainObject.getWotsits(), notNullValue());
+        assertThat(domainObject.getWotsits(), not(empty()));
     }
 
     @Test

@@ -20,7 +20,9 @@ import io.github.benas.randombeans.EnhancedRandomBuilder;
 import io.github.benas.randombeans.api.EnhancedRandom;
 import org.junit.jupiter.api.extension.*;
 
+import java.io.File;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -205,7 +207,8 @@ public class RandomBeansExtension implements TestInstancePostProcessor, Paramete
   }
 
   /**
-   * Inject random values into any fields which are annotated with {@link Random}
+   * Inject random values into any fields which are annotated with {@link Random}. 
+   * This method doesn't populate static fields if they have values.
    *
    * @param testInstance the instance to post-process
    * @param extensionContext the current extension context
@@ -218,9 +221,11 @@ public class RandomBeansExtension implements TestInstancePostProcessor, Paramete
       if (isAnnotated(field, Random.class)) {
         Random annotation = field.getAnnotation(Random.class);
         Object randomObject = resolve(field.getType(), annotation);
-
+        
         field.setAccessible(true);
-        field.set(testInstance, randomObject);
+        if (!Modifier.isStatic(field.getModifiers()) || field.get(testInstance) == null) {
+          field.set(testInstance, randomObject);
+        }
       }
     }
   }
@@ -249,4 +254,5 @@ public class RandomBeansExtension implements TestInstancePostProcessor, Paramete
       return random.nextObject(targetType, annotation.excludes());
     }
   }
+
 }

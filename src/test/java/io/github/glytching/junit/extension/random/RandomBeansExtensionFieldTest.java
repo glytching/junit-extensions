@@ -34,6 +34,12 @@ import static org.hamcrest.Matchers.*;
 @ExtendWith(RandomBeansExtension.class)
 public class RandomBeansExtensionFieldTest {
 
+  @Random private static String anyStaticString;
+
+  // gather the random values to facilitate assertions on the not distinct-ness of the value supplied to
+  // each test
+  private static Collection<String> anyStaticStrings = new HashSet<>();
+
   // gather the random values to facilitate assertions on the distinct-ness of the value supplied to
   // each test
   private final Set<String> anyStrings = new HashSet<>();
@@ -78,6 +84,11 @@ public class RandomBeansExtensionFieldTest {
   @Test
   public void canInjectAFullyPopulatedRandomObject() {
     assertThatDomainObjectIsFullyPopulated(fullyPopulatedDomainObject);
+  }
+
+  @Test
+  public void canInjectStaticFields() {
+    assertThat(anyStaticString, is(notNullValue()));
   }
 
   @Test
@@ -147,5 +158,12 @@ public class RandomBeansExtensionFieldTest {
           not(hasItem(anyString)));
       anyStrings.add(anyString);
     }
+  }
+
+  @RepeatedTest(5)
+  public void willNotInjectANewRandomValueEachTimeForAStaticField() {
+    assertThat(anyStaticString, notNullValue());
+    anyStaticStrings.add(anyStaticString);
+    assertThat(anyStaticStrings, is(hasSize(1)));
   }
 }

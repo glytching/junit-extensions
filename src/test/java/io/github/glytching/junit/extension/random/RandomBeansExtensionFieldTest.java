@@ -38,7 +38,7 @@ public class RandomBeansExtensionFieldTest {
 
   // gather the random values to facilitate assertions on the not distinct-ness of the value supplied to
   // each test
-  private static Collection<String> staticStringCollection = new HashSet<>();
+  private static Collection<String> anyStaticStrings = new HashSet<>();
 
   // gather the random values to facilitate assertions on the distinct-ness of the value supplied to
   // each test
@@ -87,7 +87,7 @@ public class RandomBeansExtensionFieldTest {
   }
 
   @Test
-  public void acnInjectStaticFields() {
+  public void canInjectStaticFields() {
     assertThat(anyStaticString, is(notNullValue()));
   }
 
@@ -161,9 +161,9 @@ public class RandomBeansExtensionFieldTest {
   }
 
   @RepeatedTest(5)
-  public void willNotInjectANewRandomValueEachTime() {
+  public void willNotInjectANewRandomValueEachTimeForAStaticField() {
     assertThat(anyStaticString, notNullValue());
-    staticStringCollection.add(anyStaticString);
-    assertThat(staticStringCollection, is(hasSize(1)));
+    anyStaticStrings.add(anyStaticString);
+    assertThat(anyStaticStrings, is(hasSize(1)));
   }
 }

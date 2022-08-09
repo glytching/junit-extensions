@@ -13,6 +13,9 @@ This extension is engaged by adding the `@Random` annotation to a test class fie
 - `size`: for collection types, the size of the generated collection
 - `type`: for collection types, the underlying type of a generic collection 
 
+You can use `@Random` annotation to a `static` field.  
+From **v2.6.0** `static` field will be populated only once. Note, that in case of any default value (except `null`) the value will not be overridden by the extension.
+
 #### Examples
 
 ###### Test Class Fields
@@ -23,6 +26,8 @@ public class MyTest {
 
     // injected with a random String    
     @Random private String anyString;
+
+    @Random private static String anyStaticString;
     
     // injected with a random, fully populated instance of DomainObject    
     @Random private DomainObject fullyPopulatedDomainObject;

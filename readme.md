@@ -32,7 +32,7 @@ The `junit-extensions` library is available on [Maven Central](http://search.mav
 <dependency>
     <groupId>io.github.glytching</groupId>
     <artifactId>junit-extensions</artifactId>
-    <version>2.5.0</version>
+    <version>2.6.0</version>
     <scope>test</scope>
 </dependency>
 ```
@@ -40,7 +40,7 @@ The `junit-extensions` library is available on [Maven Central](http://search.mav
 #### Gradle
 
 ```
-testCompile 'io.github.glytching:junit-extensions:2.5.0'
+testCompile 'io.github.glytching:junit-extensions:2.6.0'
 ```
 
 ### Building JUnit-Extensions

@@ -1,7 +1,7 @@
 JUnit Extensions
 ====
 
-[![Build Status](https://circleci.com/gh/glytching/junit-extensions.svg?style=svg)](https://circleci.com/gh/glytching/junit-extensions) [![Coverage Status](https://coveralls.io/repos/github/glytching/junit-extensions/badge.svg?branch=master)](https://coveralls.io/github/glytching/junit-extensions?branch=master) [![Scrutinizer](https://img.shields.io/scrutinizer/g/glytching/junit-extensions.svg)](https://scrutinizer-ci.com/g/glytching/junit-extensions/) [![Javadoc](https://javadoc.io/badge2/io.github.glytching/junit-extensions/javadoc.svg)](https://javadoc.io/doc/io.github.glytching/junit-extensions) [![Maven Central](https://img.shields.io/maven-central/v/io.github.glytching/junit-extensions.svg)](https://repo1.maven.org/maven2/io/github/glytching/junit-extensions/2.5.0/) [![GitHub Release](https://img.shields.io/github/release/glytching/junit-extensions.svg)](https://github.com/glytching/junit-extensions/releases)
+[![Build Status](https://circleci.com/gh/glytching/junit-extensions.svg?style=svg)](https://circleci.com/gh/glytching/junit-extensions) [![Coverage Status](https://coveralls.io/repos/github/glytching/junit-extensions/badge.svg?branch=master)](https://coveralls.io/github/glytching/junit-extensions?branch=master) [![Scrutinizer](https://img.shields.io/scrutinizer/g/glytching/junit-extensions.svg)](https://scrutinizer-ci.com/g/glytching/junit-extensions/) [![Javadoc](https://javadoc.io/badge2/io.github.glytching/junit-extensions/javadoc.svg)](https://javadoc.io/doc/io.github.glytching/junit-extensions) [![Maven Central](https://img.shields.io/maven-central/v/io.github.glytching/junit-extensions.svg)](https://repo1.maven.org/maven2/io/github/glytching/junit-extensions/2.6.0/) [![GitHub Release](https://img.shields.io/github/release/glytching/junit-extensions.svg)](https://github.com/glytching/junit-extensions/releases)
 
 > With thanks and appreciation to the authors of [JUnit5](https://github.com/junit-team/junit5/graphs/contributors).
 
@@ -24,7 +24,7 @@ There have been discussions amongst the JUnit community (see [this](https://gith
 
 ### Using JUnit-Extensions
 
-The `junit-extensions` library is available on [Maven Central](http://search.maven.org/#artifactdetails%7Cio.github.glytching%7Cjunit-extensions%7C2.5.0%7Cjar):
+The `junit-extensions` library is available on [Maven Central](http://search.maven.org/#artifactdetails%7Cio.github.glytching%7Cjunit-extensions%7C2.6.0%7Cjar):
 
 #### Maven 
 
